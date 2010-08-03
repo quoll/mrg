@@ -4,7 +4,7 @@ The major methods on the Graph interface, and how to use them to access RDF stru
 = Introduction =
 The *Graph* interface is used to read the structure of an RDF Graph. For information about how to create a graph, see GraphLoading. For information about modifying a graph, see AppendableGraph and WritableGraph.
 
-RDF uses three kinds of resources: URI References, Blank Nodes, and Literals. The API classes for representing these resources are *Uri*, *Bnode* and *Literal*, respectively. For the moment, the Graph API works exclusively with these types, though the next version will provide tools to automatically convert resources to and from Java types.
+RDF uses three kinds of resources: URI References, Blank Nodes, and Literals. The API classes for representing these resources are *Uri*, *Bnode* and *Literal*, respectively. While the Graph API works entirely with these types, there is extensive method overloading to allow the use of `java.net.URI` and strings. In any place where a URI reference would be required (such as for a subject or predicate) then a string will automatically converted. Where a Literal is possible, then strings are converted to literals instead. In the following examples we will stick to the internal types, but remember that the conversions are available. This can save the need to explicitly create Uris and Literals.
 
 Resources that can have descriptions about them in RDF are *!SubjectNodes*. These include both *Uri* and *Bnode*. Using an instance of one of these items, a graph can be interrogated for the properties on those resources. Some of the following examples will use Uri resources identified by some given URI, but later on we will show you how to find resources as well.
 
@@ -25,6 +25,8 @@ To find a list of all properties of a subject, use the getProperties method:
     System.out.println(propVal.getProperty() + " = " + propVal.getValue());
   }
 }}}
+
+Note that `graph.getProperties()` could have taken the string form of the URI instead.
 
 There is no need to go through all of the properties on a subject. If you just require the values associated with a single property you can get it directly with getValue:
 {{{
