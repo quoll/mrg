@@ -29,3 +29,9 @@ The interfaces for the Graph API are split between various roles, so that the ap
 == Structured Updates ==
 
 The Graph API was included with this project to make accessing graph data much easier. Because of this, !WritableGraph has a triples-only mechanism for updating data. This interface will be extended to make updates more natural for a Java programmer. For instance, instances of a java.util.List will be added as an RDF list, and literal data will be automatically encapsulated.
+
+== Name of the Project ==
+
+MRG stands for Mulgara RDF Graphs. Initially I tried to use RG, which seems to clash with fewer other things, but Google Code didn't like a short name like that. So it got the "Mulgara" label, since it is vaguely related, even though it was written from scratch.
+
+It's _hard_ to find a name that isn't being used and doesn't sound terrible (compare with jSPARQLc).
