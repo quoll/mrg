@@ -1,0 +1,8 @@
+MRG can be downloaded directly from the [http://code.google.com/p/mrg/downloads/list Downloads page], or as [http://code.google.com/p/mrg/source/checkout source code].
+
+
+If downloading the binary JAR file, then you will also need to get the following JARs:
+
+  * [http://jena.sourceforge.net/iri/index.html IRI] - ([http://jena.sourceforge.net/iri/license.html Jena License])
+  * [http://site.icu-project.org/download ICU4j] - ([http://source.icu-project.org/repos/icu/icu/trunk/license.html ICU Licence])
+  * [http://xerces.apache.org/mirrors.cgi#binary Xerces2 Java] - ([http://www.apache.org/licenses/LICENSE-2.0.html Apache 2.0 License])
