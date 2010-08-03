@@ -7,7 +7,7 @@
 package org.mulgara.jena.n3.turtle.parser;
 
 import org.mulgara.jena.n3.turtle.ParserBase;
-import org.mulgara.rdf.*;
+import org.mulgara.mrg.*;
 
 public class TurtleParser extends ParserBase implements TurtleParserConstants {
 
