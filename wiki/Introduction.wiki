@@ -1,0 +1,31 @@
+#labels graph,api,summary
+= Introduction =
+
+MRG is a lightweight graph API that is useful for accessing general RDF data programmatically, without the need for a query engine. It was initially released as a part of [http://code.google.com/p/jsparqlc jSPARQLc] (Java SPARQL Connectivity), but its utility grew enough to support its own project.
+
+The code samples shown here are current with the latest codebase. In some cases this may lead the release version.
+
+= Resources in RDF =
+
+RDF triples group _subject_, _predicates_ and _objects_ together with little meaning associated with each position. Consequently, programs accessing data in triples need to tease out the structure on their own. The idea of the Graph API is to represent the more common structures in RDF as data structures that fit the application more appropriately.
+
+RDF graphs typically describe entities, or _resources_,  as _subjects_ with a series of values for properties. For instance, an entity may be _a_Person_, have a _name_ of "Fred" and have an _age_ of 42. This is very similar to database records, or objects in an Object Oriented (OO) Programming language. Indeed, Object Relational Mappers (ORMs) use this similarity in structure to move data between databases and class instances in OO languages, such as Java. The big difference with RDF is that the number and types of properties are infinitely flexible. This means that static languages like Java are often unable to create classes to map data into, since the structure of the data may be unknown initially, and can evolve over time.
+
+Resources that have been described with RDF may also be connected with various relationships. This is important information as well, but these connections are typically far fewer than the lists of properties that identify and describe the principle resources.
+
+= Graph APIs =
+
+With this in mind, the Graph API focuses on providing an easy mechanism to retrieve properties about resources in the graph. It also provides a means for searching for resources based on the value of a property. While this is not as flexible as a full query language, it does provide a useful mechanism for accessing the data in a graph without having to process all the triples manually. Graphs are indexed, so each of the operations are very efficient.
+
+The interfaces for the Graph API are split between various roles, so that the appropriate interface can be selected to protect the data structures appropriately.
+
+  * The [GraphReading Graph] interface provides read-only access to a graph. This is appropriate for situations where the graph has been read from a foreign source, and local modifications are irrelevant.
+
+  * The AppendableGraph interface extends the Graph interface, providing a mechanism for adding new RDF statements. This is useful for building a graph from scratch, or adding new information to an existing graph.
+
+  * The WritableGraph provides complete read/write access to the graph, at the triple level. This is for modifying local structures dynamically.
+
+
+== Structured Updates ==
+
+The Graph API was included with this project to make accessing graph data much easier. Because of this, !WritableGraph has a triples-only mechanism for updating data. This interface will be extended to make updates more natural for a Java programmer. For instance, instances of a java.util.List will be added as an RDF list, and literal data will be automatically encapsulated.
