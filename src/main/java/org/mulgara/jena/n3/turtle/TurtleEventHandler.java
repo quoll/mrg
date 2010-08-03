@@ -6,7 +6,7 @@
 
 package org.mulgara.jena.n3.turtle;
 
-import org.mulgara.rdf.Triple;
+import org.mulgara.mrg.Triple;
 
 
 public interface TurtleEventHandler

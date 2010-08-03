@@ -6,18 +6,18 @@
 
 package org.mulgara.jena.n3.turtle;
 
-import org.mulgara.rdf.Node;
-import org.mulgara.rdf.Bnode;
-import org.mulgara.rdf.Uri;
-import org.mulgara.rdf.Literal;
-import org.mulgara.rdf.Triple;
-import org.mulgara.rdf.vocab.OWL;
-import org.mulgara.rdf.vocab.RDF;
-import org.mulgara.rdf.vocab.uri.XSD;
 import org.mulgara.jena.n3.IRIResolver;
 import org.mulgara.jena.n3.JenaURIException;
 import org.mulgara.jena.shared.PrefixMapping;
 import org.mulgara.jena.shared.impl.PrefixMappingImpl;
+import org.mulgara.mrg.Bnode;
+import org.mulgara.mrg.Literal;
+import org.mulgara.mrg.Node;
+import org.mulgara.mrg.Triple;
+import org.mulgara.mrg.Uri;
+import org.mulgara.mrg.vocab.OWL;
+import org.mulgara.mrg.vocab.RDF;
+import org.mulgara.mrg.vocab.uri.XSD;
 
 import java.net.URI;
 import java.util.logging.Logger;

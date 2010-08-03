@@ -9,8 +9,8 @@ package org.mulgara.jena.n3.turtle;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.mulgara.rdf.Node;
-import org.mulgara.rdf.Bnode;
+import org.mulgara.mrg.Bnode;
+import org.mulgara.mrg.Node;
 
 /** Map from _:* form to bNodes
  * 

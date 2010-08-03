@@ -9,7 +9,7 @@ package org.mulgara.jena.shared;
 import java.util.*;
 
 import org.mulgara.jena.shared.impl.PrefixMappingImpl;
-import org.mulgara.rdf.vocab.uri.*;
+import org.mulgara.mrg.vocab.uri.*;
 
 /**
     Methods for recording namepsace prefix mappings and applying and
