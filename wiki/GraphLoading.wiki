@@ -30,7 +30,7 @@ To parse a graph in one of these formats, just create an instance of one of thes
 {{{
 import org.mulgara.rdf.Graph;
 import org.mulgara.rdf.parser.*;
-import org.mulgara.rdf.vocab.FOAF;
+static import org.mulgara.rdf.vocab.FOAF;
 
 
 String text = "@prefix foaf:       <http://xmlns.com/foaf/0.1/> .\n" +
@@ -46,7 +46,7 @@ Graph graph = parser.getGraph();
 
 // see what we read
 Node bob = graph.getSubjects(FOAF.NAME, "Bob").get(0);
-Node shoeSize = graph.getValue(bob, Uri.create("http://biometrics.example/ns#shoeSize");
+Node shoeSize = graph.getValue(bob, "http://biometrics.example/ns#shoeSize");
 System.out.println("Bob's shoe size is: " + shoeSize);
 }}}
 
