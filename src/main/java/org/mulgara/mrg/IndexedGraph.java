@@ -129,12 +129,26 @@ public class IndexedGraph extends AbstractGraph {
 
 
   /**
+   * Gets all the predicates in the graph.
+   * @return All the predicatess in the graph.
+   */
+  public Collection<PredicateNode> getPredicates() {
+    return pos.getKeySet();
+  }
+
+  /**
+   * Gets all the objects in the graph.
+   * @return All the objects in the graph.
+   */
+  public Collection<ObjectNode> getObjects() {
+    return osp.getKeySet();
+  }
+
+
+  /**
    * This class iterates over triples that have two fixed values.
    */
   private class TwoFixedIterator implements Iterator<Triple> {
-
-    /** The index to generate the triples from */
-    private final ThreeTierIndex<? extends Node, ? extends Node, ? extends Node> index;
 
     /** The rotation from the base SPO */
     private final int rotation;
@@ -155,7 +169,6 @@ public class IndexedGraph extends AbstractGraph {
      * @param p The predicate to look up.
      */
     public TwoFixedIterator(ThreeTierIndex<SubjectNode,PredicateNode,ObjectNode> index, SubjectNode s, PredicateNode p) {
-      this.index = index;
       first = s;
       second = p;
       rotation = 0;
@@ -169,7 +182,6 @@ public class IndexedGraph extends AbstractGraph {
      * @param o The object to look up.
      */
     public TwoFixedIterator(ThreeTierIndex<PredicateNode,ObjectNode,SubjectNode> index, PredicateNode p, ObjectNode o) {
-      this.index = index;
       first = p;
       second = o;
       rotation = 1;
@@ -183,7 +195,6 @@ public class IndexedGraph extends AbstractGraph {
      * @param s The subject to look up.
      */
     public TwoFixedIterator(ThreeTierIndex<ObjectNode,SubjectNode,PredicateNode> index, ObjectNode o, SubjectNode s) {
-      this.index = index;
       first = o;
       second = s;
       rotation = 2;
@@ -227,9 +238,6 @@ public class IndexedGraph extends AbstractGraph {
    */
   private class OneFixedIterator implements Iterator<Triple> {
 
-    /** The index to generate the triples from */
-    private final ThreeTierIndex<? extends Node, ? extends Node, ? extends Node> index;
-
     /** The rotation from the base SPO */
     private final int rotation;
 
@@ -252,10 +260,9 @@ public class IndexedGraph extends AbstractGraph {
      */
     @SuppressWarnings("unchecked")
     public OneFixedIterator(ThreeTierIndex<SubjectNode,PredicateNode,ObjectNode> index, SubjectNode s) {
-      this.index = index;
       first = s;
       rotation = 0;
-      outerIt = (Iterator<Map.Entry<? extends Node,Collection<? extends Node>>>)(Iterator)index.get(s).entryIterator();
+      outerIt = (Iterator<Map.Entry<? extends Node,Collection<? extends Node>>>)(Iterator<?>)index.get(s).entryIterator();
       init();
     }
 
@@ -266,10 +273,9 @@ public class IndexedGraph extends AbstractGraph {
      */
     @SuppressWarnings("unchecked")
     public OneFixedIterator(ThreeTierIndex<PredicateNode,ObjectNode,SubjectNode> index, PredicateNode p) {
-      this.index = index;
       first = p;
       rotation = 1;
-      outerIt = (Iterator<Map.Entry<? extends Node,Collection<? extends Node>>>)(Iterator)index.get(p).entryIterator();
+      outerIt = (Iterator<Map.Entry<? extends Node,Collection<? extends Node>>>)(Iterator<?>)index.get(p).entryIterator();
       init();
     }
 
@@ -280,10 +286,9 @@ public class IndexedGraph extends AbstractGraph {
      */
     @SuppressWarnings("unchecked")
     public OneFixedIterator(ThreeTierIndex<ObjectNode,SubjectNode,PredicateNode> index, ObjectNode o) {
-      this.index = index;
       first = o;
       rotation = 2;
-      outerIt = (Iterator<Map.Entry<? extends Node,Collection<? extends Node>>>)(Iterator)index.get(o).entryIterator();
+      outerIt = (Iterator<Map.Entry<? extends Node,Collection<? extends Node>>>)(Iterator<?>)index.get(o).entryIterator();
       init();
     }
 

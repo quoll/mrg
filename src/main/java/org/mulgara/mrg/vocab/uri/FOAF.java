@@ -25,7 +25,7 @@ import java.net.URI;
 public class FOAF {
 
   /** The QName prefix for FOAF */
-  public static final String PREFIX = "FOAF";
+  public static final String PREFIX = "foaf";
 
   /** The DC namespace */
   public static final String BASE = "http://xmlns.com/foaf/0.1/";
@@ -38,5 +38,8 @@ public class FOAF {
 
   /** The knows relationship. */
   public static final URI KNOWS = URI.create(BASE + "knows");
+
+  /** The Person class. */
+  public static final URI PERSON = URI.create(BASE + "Person");
 
 }

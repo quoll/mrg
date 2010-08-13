@@ -24,7 +24,7 @@ import java.net.URI;
 public class Literal implements ObjectNode {
 
   /** The type identifier for Literals */
-  private static final int TYPE_ID = 1;
+  public static final int TYPE_ID = 1;
 
   /** The text of the literal. */
   private final String text;
@@ -43,7 +43,7 @@ public class Literal implements ObjectNode {
    * @param text The text of the literal.
    */
   public Literal(String text) {
-    this.text = text;
+    this.text = text.intern();
     lang = null;
     type = null;
     data = null;
@@ -55,7 +55,7 @@ public class Literal implements ObjectNode {
    * @param type The URI of the datatype.
    */
   public Literal(String text, URI type) {
-    this.text = text;
+    this.text = text.intern();
     this.type = type;
     data = XSDMapper.toData(type, text);
     lang = null;
@@ -68,7 +68,7 @@ public class Literal implements ObjectNode {
    * @param type The URI of the datatype.
    */
   public Literal(String text, Object val, URI type) {
-    this.text = text;
+    this.text = text.intern();
     this.type = type;
     data = val;
     lang = null;
@@ -81,7 +81,7 @@ public class Literal implements ObjectNode {
    */
   public Literal(String text, String lang) {
     this.text = text;
-    this.lang = lang.toLowerCase();
+    this.lang = lang.toLowerCase().intern();
     if (lang.indexOf(' ') >= 0) throw new IllegalArgumentException("Language tags may not contain a space");
     this.type = null;
     data = null;
@@ -94,12 +94,12 @@ public class Literal implements ObjectNode {
    * @param type The URI of the datatype.
    */
   public Literal(String text, String lang, URI type) {
-    this.text = text;
+    this.text = text.intern();
     if (lang != null) {
       if (type != null) throw new IllegalArgumentException("Literals may not have a language tag and a data type");
       this.type = null;
       this.data = null;
-      this.lang = lang.toLowerCase();
+      this.lang = lang.toLowerCase().intern();
       if (lang.indexOf(' ') >= 0) throw new IllegalArgumentException("Language tags may not contain a space");
     } else {
       this.lang = null;
@@ -163,6 +163,7 @@ public class Literal implements ObjectNode {
     return (a == null) ? b == null : a.equals(b);
   }
 
+  @SuppressWarnings("unchecked")
   private static final <T> int cmp(Comparable<T> a, Comparable<T> b) {
     if (a == null) {
       if (b == null) return 0;

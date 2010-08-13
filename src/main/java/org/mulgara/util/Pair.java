@@ -78,7 +78,7 @@ public class Pair<A,B> implements Map.Entry<A,B> {
    * Equality method. Based on the wrapped URI.
    */
   public boolean equals(Object o) {
-    return (o instanceof Pair) && ((Pair)o)._1.equals(_1) && ((Pair)o)._2.equals(_2);
+    return (o instanceof Pair) && ((Pair<?,?>)o)._1.equals(_1) && ((Pair<?,?>)o)._2.equals(_2);
   }
 
   /**

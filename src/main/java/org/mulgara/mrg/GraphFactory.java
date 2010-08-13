@@ -16,19 +16,16 @@
 
 package org.mulgara.mrg;
 
+
 /**
- * Indicates an internal error in the RDF library.
+ * An object for creating graphs.
  */
-public class RdfException extends Exception {
+public interface GraphFactory {
 
-  private static final long serialVersionUID = 423957789781892991L;
-
-  public RdfException() { }
-
-  public RdfException(String msg) { super(msg); }
-
-  public RdfException(Throwable cause) { super(cause); }
-
-  public RdfException(String msg, Throwable cause) { super(msg, cause); }
+  /**
+   * Create a new appendable graph.
+   * @return a new empty graph.
+   */
+  public AppendableGraph createGraph();
 
 }

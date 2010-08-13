@@ -36,4 +36,7 @@ public class FOAF {
   /** The knows relationship. */
   public static final Uri KNOWS = new Uri(org.mulgara.mrg.vocab.uri.FOAF.KNOWS);
 
+  /** The Person class. */
+  public static final Uri PERSON = new Uri(org.mulgara.mrg.vocab.uri.FOAF.PERSON);
+
 }

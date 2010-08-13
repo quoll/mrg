@@ -16,8 +16,6 @@
 
 package org.mulgara.mrg.parser;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.IOException;
@@ -35,10 +33,10 @@ import org.mulgara.jena.rdf.arp.ARPOptions;
 import org.mulgara.jena.rdf.arp.ARPHandlers;
 import org.mulgara.jena.rdf.arp.AResource;
 import org.mulgara.jena.rdf.arp.StatementHandler;
-import org.mulgara.jena.rdf.arp.impl.Location;
 import org.mulgara.mrg.Bnode;
-import org.mulgara.mrg.Graph;
+import org.mulgara.mrg.GraphFactory;
 import org.mulgara.mrg.GraphImpl;
+import org.mulgara.mrg.GraphImplFactory;
 import org.mulgara.mrg.Literal;
 import org.mulgara.mrg.Node;
 import org.mulgara.mrg.ObjectNode;
@@ -49,7 +47,6 @@ import org.mulgara.mrg.WritableGraph;
 
 
 import static org.mulgara.util.Strings.toUtf8Bytes;
-import static org.mulgara.jena.rdf.arp.ARPErrorNumbers.EM_ERROR;
 
 /**
  * Parses the contents of an RDF/XML file into a graph representation.
@@ -78,6 +75,24 @@ public class XMLGraphParser implements StatementHandler, ErrorHandler, GraphPars
    * @param is The input stream with the graph data.
    */
   public XMLGraphParser(InputStream is) throws ParseException, IOException {
+    this(is, new GraphImplFactory());
+  }
+
+  /**
+   * Create a graph from a string and a graph factory.
+   * @param s The string containing the RDF/XML.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public XMLGraphParser(String s, GraphFactory graphFactory) throws ParseException, IOException {
+    this(new ByteArrayInputStream(toUtf8Bytes(s)), graphFactory);
+  }
+
+  /**
+   * Create a graph from an InputStream and a graph factory.
+   * @param is The input stream with the graph data.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public XMLGraphParser(InputStream is, GraphFactory graphFactory) throws ParseException, IOException {
     ARP arp = new ARP();
 
     ARPOptions options = arp.getOptions();

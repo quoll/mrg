@@ -24,7 +24,7 @@ import java.net.URI;
 public class OWL {
 
   /** The QName prefix for OWL */
-  public static final String Prefix = "owl";
+  public static final String PREFIX = "owl";
 
   /** The OWL namespace. */
   public static final String BASE = "http://www.w3.org/2002/07/owl#";

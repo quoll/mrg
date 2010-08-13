@@ -21,11 +21,14 @@ import java.net.URISyntaxException;
 
 /**
  * A wrapper for a URI. This allows the use of URI as a Node.
+ * TODO: create Uri with factory from the graph. If a uri string is already
+ * internal (u == u.intern()) then it is already in the graph, and we want
+ * to find it with the existing indexes so that we can reuse the object.
  */
 public class Uri implements SubjectNode, PredicateNode, ObjectNode {
 
   /** The type identifier for Uri */
-  private static final int TYPE_ID = 0;
+  public static final int TYPE_ID = 0;
 
   /** The wrapped URI. */
   private final URI uri;
@@ -35,7 +38,7 @@ public class Uri implements SubjectNode, PredicateNode, ObjectNode {
    * @param uri The string form of the URI to wrap.
    */
   public Uri(String u) throws URISyntaxException {
-    this.uri = new URI(u);
+    this.uri = new URI(u.intern());
   }
 
   /**
@@ -51,7 +54,7 @@ public class Uri implements SubjectNode, PredicateNode, ObjectNode {
    * @param uri The string form of the URI to wrap.
    */
   public static Uri create(String u) {
-    return new Uri(URI.create(u));
+    return new Uri(URI.create(u.intern()));
   }
 
   /**
