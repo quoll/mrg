@@ -16,41 +16,8 @@
 
 package org.mulgara.mrg.parser;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.SAXException;
-import org.mulgara.jena.rdf.arp.ALiteral;
-import org.mulgara.jena.rdf.arp.ARP;
-import org.mulgara.jena.rdf.arp.ARPOptions;
-import org.mulgara.jena.rdf.arp.ARPHandlers;
-import org.mulgara.jena.rdf.arp.AResource;
-import org.mulgara.jena.rdf.arp.StatementHandler;
-import org.mulgara.jena.rdf.arp.ParseException;
-import org.mulgara.jena.rdf.arp.impl.Location;
-import org.mulgara.mrg.Bnode;
-import org.mulgara.mrg.Graph;
-import org.mulgara.mrg.GraphImpl;
-import org.mulgara.mrg.Literal;
-import org.mulgara.mrg.Node;
-import org.mulgara.mrg.ObjectNode;
-import org.mulgara.mrg.PredicateNode;
-import org.mulgara.mrg.SubjectNode;
-import org.mulgara.mrg.Uri;
 import org.mulgara.mrg.WritableGraph;
 
-
-import static org.mulgara.util.Strings.toUtf8Bytes;
-import static org.mulgara.jena.rdf.arp.ARPErrorNumbers.EM_ERROR;
 
 /**
  * Parses the contents of a stream into a graph representation.

@@ -113,7 +113,6 @@ public class C {
    * @return The first element in the list.
    * @throws NoSuchElementException If the list is empty.
    */
-  @SuppressWarnings("unchecked")
   public static final <T1> T1 head(List<T1> arg) throws NoSuchElementException {
     if (arg instanceof LinkedList) return ((LinkedList<T1>)arg).getFirst();
     if (arg.size() == 0) throw new NoSuchElementException("Empty list");
@@ -136,7 +135,6 @@ public class C {
    * @param arg The list.
    * @return The first element in the list, or <code>null</code> if the list is empty.
    */
-  @SuppressWarnings("unchecked")
   public static final <T1> T1 headN(List<T1> arg) {
     return arg.isEmpty() ? null : (arg instanceof LinkedList) ? ((LinkedList<T1>)arg).getFirst() : arg.get(0);
   }
@@ -160,7 +158,6 @@ public class C {
    * @return The last element in the list.
    * @throws IndexOutOfBoundsException If the list is empty.
    */
-  @SuppressWarnings("unchecked")
   public static final <T1> T1 last(List<T1> arg) throws NoSuchElementException {
     if (arg instanceof LinkedList) return ((LinkedList<T1>)arg).getLast();
     if (arg.size() == 0) throw new NoSuchElementException("Empty list");
@@ -216,7 +213,6 @@ public class C {
    * @return The first element in the collection.
    * @throws NoSuchElementException If the collection is empty.
    */
-  @SuppressWarnings("unchecked")
   public static final <T1> T1 first(Collection<T1> arg) throws NoSuchElementException {
     if (arg instanceof LinkedList) return ((LinkedList<T1>)arg).getFirst();
     if (arg.isEmpty()) throw new NoSuchElementException("Empty Collection");

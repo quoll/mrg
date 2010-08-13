@@ -23,6 +23,8 @@ import org.mulgara.mrg.RdfException;
  */
 public class ParseException extends RdfException {
 
+  private static final long serialVersionUID = -6851379334791196804L;
+
   public ParseException() { }
 
   public ParseException(String msg) { super(msg); }

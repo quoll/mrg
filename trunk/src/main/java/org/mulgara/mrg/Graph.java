@@ -16,14 +16,41 @@
 
 package org.mulgara.mrg;
 
+import java.util.Collection;
 import java.util.List;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * An RDF graph.
  */
-public interface Graph {
+public interface Graph extends GraphExt {
+
+  /**
+   * Tests if a triple has been asserted. Be careful of blank nodes, as
+   * they will only match if they are exactly alike.
+   * @param t The triple to test for.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  boolean isAsserted(Triple t);
+
+  /**
+   * Tests if a triple has been asserted. Be careful of blank nodes, as
+   * they will only match if they are exactly alike.
+   * @param s The subject of the triple to search for.
+   * @param p The predicate of the triple to search for.
+   * @param o The object of the triple to search for.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  boolean isAsserted(SubjectNode s, PredicateNode p, ObjectNode o);
+
+  /**
+   * Tests if a resource exists anywhere in the graph.
+   * @param r The resource to test.
+   * @return <code>true</code> only if the resource is used somewhere in the graph.
+   */
+  boolean doesResourceExist(Node r);
 
   /**
    * Gets all the properties for a given subject.
@@ -34,103 +61,12 @@ public interface Graph {
 
 
   /**
-   * Gets all the properties for a given subject, with a URI as the subject.
-   * @param s The subject as a URI.
-   * @return A list of property/value pairs.
-   */
-  List<PropertyValue> getProperties(URI s);
-
-
-  /**
-   * Gets all the properties for a given subject, with a string representing a URI as the subject.
-   * @param s The subject as a string.
-   * @return A list of property/value pairs.
-   */
-  List<PropertyValue> getProperties(String s) throws URISyntaxException;
-
-
-  /**
    * Gets all the values for a given property on a subject.
    * @param s The subject to get the properties for.
    * @param p The property of interest.
    * @return The list of values for the property on that subject.
    */
   public List<ObjectNode> getValues(SubjectNode s, PredicateNode p);
-
-  ////// START OVERLOADED METHODS FOR getValues
-
-  /**
-   * Gets all the values for a given property on a subject.
-   * @param s The subject to get the properties for.
-   * @param p The property of interest, as a URI.
-   * @return The list of values for the property on that subject.
-   */
-  public List<ObjectNode> getValues(SubjectNode s, URI p);
-
-
-  /**
-   * Gets all the values for a given property on a subject.
-   * @param s The subject to get the properties for, as a URI.
-   * @param p The property of interest.
-   * @return The list of values for the property on that subject.
-   */
-  public List<ObjectNode> getValues(URI s, PredicateNode p);
-
-
-  /**
-   * Gets all the values for a given property on a subject.
-   * @param s The subject to get the properties for, as a URI.
-   * @param p The property of interest, as a URI.
-   * @return The list of values for the property on that subject.
-   */
-  public List<ObjectNode> getValues(URI s, URI p);
-
-
-  /**
-   * Gets all the values for a given property on a subject.
-   * @param s The subject to get the properties for.
-   * @param p The property of interest, as a string.
-   * @return The list of values for the property on that subject.
-   */
-  public List<ObjectNode> getValues(SubjectNode s, String p) throws URISyntaxException;
-
-
-  /**
-   * Gets all the values for a given property on a subject.
-   * @param s The subject to get the properties for, as a string.
-   * @param p The property of interest.
-   * @return The list of values for the property on that subject.
-   */
-  public List<ObjectNode> getValues(String s, PredicateNode p) throws URISyntaxException;
-
-
-  /**
-   * Gets all the values for a given property on a subject.
-   * @param s The subject to get the properties for, as a string.
-   * @param p The property of interest, as a string.
-   * @return The list of values for the property on that subject.
-   */
-  public List<ObjectNode> getValues(String s, String p) throws URISyntaxException;
-
-
-  /**
-   * Gets all the values for a given property on a subject.
-   * @param s The subject to get the properties for, as a URI.
-   * @param p The property of interest, as a string.
-   * @return The list of values for the property on that subject.
-   */
-  public List<ObjectNode> getValues(URI s, String p) throws URISyntaxException;
-
-
-  /**
-   * Gets all the values for a given property on a subject.
-   * @param s The subject to get the properties for, as a string.
-   * @param p The property of interest, as a URI.
-   * @return The list of values for the property on that subject.
-   */
-  public List<ObjectNode> getValues(String s, URI p) throws URISyntaxException;
-
-  ////// END OF OVERLOADED METHODS FOR getValues
 
   /**
    * Gets a single value for a given property on a subject.
@@ -140,82 +76,7 @@ public interface Graph {
    */
   public ObjectNode getValue(SubjectNode s, PredicateNode p);
 
-  ////// START OVERLOADED METHODS FOR getValue
-
   /**
-   * Gets a single value for a given property on a subject.
-   * @param s The subject to get the properties for.
-   * @param p The property of interest, as a URI.
-   * @return The first values for the property on that subject.
-   */
-  public ObjectNode getValue(SubjectNode s, URI p);
-
-
-  /**
-   * Gets a single value for a given property on a subject.
-   * @param s The subject to get the properties for, as a URI.
-   * @param p The property of interest.
-   * @return The first values for the property on that subject.
-   */
-  public ObjectNode getValue(URI s, PredicateNode p);
-
-
-  /**
-   * Gets a single value for a given property on a subject.
-   * @param s The subject to get the properties for, as a URI.
-   * @param p The property of interest, as a URI.
-   * @return The first values for the property on that subject.
-   */
-  public ObjectNode getValue(URI s, URI p);
-
-
-  /**
-   * Gets a single value for a given property on a subject.
-   * @param s The subject to get the properties for.
-   * @param p The property of interest, as a string.
-   * @return The first values for the property on that subject.
-   */
-  public ObjectNode getValue(SubjectNode s, String p) throws URISyntaxException;
-
-
-  /**
-   * Gets a single value for a given property on a subject.
-   * @param s The subject to get the properties for, as a string.
-   * @param p The property of interest.
-   * @return The first values for the property on that subject.
-   */
-  public ObjectNode getValue(String s, PredicateNode p) throws URISyntaxException;
-
-
-  /**
-   * Gets a single value for a given property on a subject.
-   * @param s The subject to get the properties for, as a string.
-   * @param p The property of interest, as a string.
-   * @return The first values for the property on that subject.
-   */
-  public ObjectNode getValue(String s, String p) throws URISyntaxException;
-
-
-  /**
-   * Gets a single value for a given property on a subject.
-   * @param s The subject to get the properties for, as a URI.
-   * @param p The property of interest, as a string.
-   * @return The first values for the property on that subject.
-   */
-  public ObjectNode getValue(URI s, String p) throws URISyntaxException;
-
-
-  /**
-   * Gets a single value for a given property on a subject.
-   * @param s The subject to get the properties for, as a string.
-   * @param p The property of interest, as a URI.
-   * @return The first values for the property on that subject.
-   */
-  public ObjectNode getValue(String s, URI p) throws URISyntaxException;
-
-  ////// END OF OVERLOADED METHODS FOR getValue
-
- /**
    * Gets an rdf:List property from an object. If more than one
    * value exists for this property, then returns the first and assumes it's a list.
    * @param s The subject to get the property for.
@@ -223,82 +84,6 @@ public interface Graph {
    * @return The list associates with the property on that subject.
    */
   public List<ObjectNode> getRdfList(SubjectNode s, PredicateNode p);
-
-  ////// START OF OVERLOADED METHODS FOR getRdfList
-
-  /**
-   * Gets an rdf:List property from an object. If more than one
-   * value exists for this property, then returns the first and assumes it's a list.
-   * @param s The subject to get the property for, as a URI.
-   * @param p The property of interest.
-   * @return The list associates with the property on that subject.
-   */
-  public List<ObjectNode> getRdfList(URI s, PredicateNode p);
-
-  /**
-   * Gets an rdf:List property from an object. If more than one
-   * value exists for this property, then returns the first and assumes it's a list.
-   * @param s The subject to get the property for, as a string.
-   * @param p The property of interest.
-   * @return The list associates with the property on that subject.
-   */
-  public List<ObjectNode> getRdfList(String s, PredicateNode p) throws URISyntaxException;
-
-  /**
-   * Gets an rdf:List property from an object. If more than one
-   * value exists for this property, then returns the first and assumes it's a list.
-   * @param s The subject to get the property for.
-   * @param p The property of interest, as a URI.
-   * @return The list associates with the property on that subject.
-   */
-  public List<ObjectNode> getRdfList(SubjectNode s, URI p);
-
-  /**
-   * Gets an rdf:List property from an object. If more than one
-   * value exists for this property, then returns the first and assumes it's a list.
-   * @param s The subject to get the property for, as a URI.
-   * @param p The property of interest, as a URI.
-   * @return The list associates with the property on that subject.
-   */
-  public List<ObjectNode> getRdfList(URI s, URI p);
-
-  /**
-   * Gets an rdf:List property from an object. If more than one
-   * value exists for this property, then returns the first and assumes it's a list.
-   * @param s The subject to get the property for, as a string.
-   * @param p The property of interest, as a URI.
-   * @return The list associates with the property on that subject.
-   */
-  public List<ObjectNode> getRdfList(String s, URI p) throws URISyntaxException;
-
-  /**
-   * Gets an rdf:List property from an object. If more than one
-   * value exists for this property, then returns the first and assumes it's a list.
-   * @param s The subject to get the property for.
-   * @param p The property of interest, as a string.
-   * @return The list associates with the property on that subject.
-   */
-  public List<ObjectNode> getRdfList(SubjectNode s, String p) throws URISyntaxException;
-
-  /**
-   * Gets an rdf:List property from an object. If more than one
-   * value exists for this property, then returns the first and assumes it's a list.
-   * @param s The subject to get the property for, as  URI.
-   * @param p The property of interest, as a string.
-   * @return The list associates with the property on that subject.
-   */
-  public List<ObjectNode> getRdfList(URI s, String p) throws URISyntaxException;
-
-  /**
-   * Gets an rdf:List property from an object. If more than one
-   * value exists for this property, then returns the first and assumes it's a list.
-   * @param s The subject to get the property for, as a string.
-   * @param p The property of interest, as a string.
-   * @return The list associates with the property on that subject.
-   */
-  public List<ObjectNode> getRdfList(String s, String p) throws URISyntaxException;
-
-  ////// END OF OVERLOADED METHODS FOR getRdfList
 
   /**
    * Gets all the subjects that share a given property/value.
@@ -308,70 +93,23 @@ public interface Graph {
    */
   public List<SubjectNode> getSubjects(PredicateNode property, ObjectNode value);
 
-  ////// START OF OVERLOADED METHODS FOR getSubjects
+  /**
+   * Gets all the subjects in the graph.
+   * @return All the subjects in the graph.
+   */
+  public Collection<SubjectNode> getSubjects();
 
   /**
-   * Gets all the subjects that share a given property/value.
-   * @param property The property being looked for, as a URI.
-   * @param value The value being looked for.
-   * @return The subjects that have the value for the property.
+   * Gets all the predicates in the graph.
+   * @return All the predicatess in the graph.
    */
-  public List<SubjectNode> getSubjects(URI property, ObjectNode value);
+  public Collection<PredicateNode> getPredicates();
 
   /**
-   * Gets all the subjects that share a given property/value.
-   * @param property The property being looked for, as a string.
-   * @param value The value being looked for.
-   * @return The subjects that have the value for the property.
+   * Gets all the objects in the graph.
+   * @return All the objects in the graph.
    */
-  public List<SubjectNode> getSubjects(String property, ObjectNode value) throws URISyntaxException;
-
-  /**
-   * Gets all the subjects that share a given property/value.
-   * @param property The property being looked for, as a URI.
-   * @param value The value being looked for, as a URI.
-   * @return The subjects that have the value for the property.
-   */
-  public List<SubjectNode> getSubjects(URI property, URI value);
-
-  /**
-   * Gets all the subjects that share a given property/value.
-   * @param property The property being looked for, as a string.
-   * @param value The value being looked for, as a URI.
-   * @return The subjects that have the value for the property.
-   */
-  public List<SubjectNode> getSubjects(String property, URI value) throws URISyntaxException;
-
-  ////// END OF OVERLOADED METHODS FOR getSubjects
-
-  /**
-   * Gets all the subjects that share a given property/value.
-   * @param property The property being looked for.
-   * @param value The literal value being looked for.
-   * @return The subjects that have the value for the property.
-   */
-  public List<SubjectNode> getSubjects(PredicateNode property, String value);
-
-  ////// START OF OVERLOADED METHODS FOR getSubjects with literal value
-
-  /**
-   * Gets all the subjects that share a given property/value.
-   * @param property The property being looked for, as a URI.
-   * @param value The literal value being looked for.
-   * @return The subjects that have the value for the property.
-   */
-  public List<SubjectNode> getSubjects(URI property, String value);
-
-  /**
-   * Gets all the subjects that share a given property/value.
-   * @param property The property being looked for, as a string.
-   * @param value The literal value being looked for.
-   * @return The subjects that have the value for the property.
-   */
-  public List<SubjectNode> getSubjects(String property, String value) throws URISyntaxException;
-
-  ////// END OF OVERLOADED METHODS FOR getSubjects with literal value
-
+  public Collection<ObjectNode> getObjects();
 
   /**
    * Gets the entire graph as a list of triples.
@@ -379,6 +117,31 @@ public interface Graph {
    */
   public List<Triple> getTriples();
 
+  /**
+   * Writes the contents of the graph to an output stream as N3.
+   * @param out The stream to write to.
+   */
+  public void exportN3(OutputStream out) throws IOException;
+
+  /**
+   * Writes the contents of the graph to an output stream as N3.
+   * @param out The stream to write to.
+   * @param base The base to write to.
+   */
+  public void exportN3(OutputStream out, URI base) throws IOException;
+
+  /**
+   * Writes the contents of the graph to an output stream as RDF/XML.
+   * @param out The stream to write to.
+   */
+  public void exportXML(OutputStream out) throws IOException;
+
+  /**
+   * Writes the contents of the graph to an output stream as RDF/XML.
+   * @param out The stream to write to.
+   * @param base The base to write to.
+   */
+  public void exportXML(OutputStream out, URI base) throws IOException;
 
   /**
    * Gets the number of triples in this graph.

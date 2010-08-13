@@ -16,17 +16,22 @@
 
 package org.mulgara.mrg;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.mulgara.mrg.writer.GraphWriter;
+import org.mulgara.mrg.writer.N3Writer;
+import org.mulgara.mrg.writer.XMLWriter;
 import org.mulgara.util.Pair;
 import org.mulgara.util.Trio;
 import org.mulgara.util.Fn2;
@@ -37,11 +42,11 @@ import static org.mulgara.mrg.vocab.RDF.*;
  * An RDF graph. This uses a single index by default, and the indexes are built out of maps and collections
  * that are returned by the abstract methods createMap and createCollection respectively.
  * To implement this graph, simply define these methods to return appropriate Map and Collection
- * implementations. Extra indexes may also be added, which will allow getSubjects to be more
- * efficiently implemented.
- * TODO: test objects on insertion to avoid storing duplicates
+ * implementations. Extra indexes may also be added, which will allow getObjects and getPredicates
+ * to be more efficiently implemented. An example of this is shown in {@link IndexedGraph}.
+ * TODO: test objects on insertion to avoid storing duplicate nodes
  */
-public abstract class AbstractGraph implements Graph, WritableGraph, SearchableGraph {
+public abstract class AbstractGraph extends AbstractGraphExt implements Graph, WritableGraph, SearchableGraph {
 
   /** The spo index */
   ThreeTierIndex<SubjectNode,PredicateNode,ObjectNode> spo = new ThreeTierIndex<SubjectNode,PredicateNode,ObjectNode>();
@@ -117,22 +122,30 @@ public abstract class AbstractGraph implements Graph, WritableGraph, SearchableG
   }
 
   /**
-   * Gets all the properties for a given subject, with a URI as the subject.
-   * @param s The subject as a URI.
-   * @return A list of property/value pairs.
+   * Tests if a triple has been asserted. Be careful of blank nodes, as
+   * they will only match if they are exactly alike.
+   * @param t The triple to test for.
+   * @return <code>true</code> only if the triple exists in the graph.
    */
-  public List<PropertyValue> getProperties(URI s) {
-	return getProperties(new Uri(s));
+  public boolean isAsserted(Triple t) {
+    return isAsserted(t.getSubject(), t.getPredicate(), t.getObject());
   }
 
   /**
-   * Gets all the properties for a given subject, with a string representing a URI as the subject.
-   * @param s The subject as a string.
-   * @return A list of property/value pairs.
- * @throws URISyntaxException If the string is not a well formed URI.
+   * Tests if a triple has been asserted. Be careful of blank nodes, as
+   * they will only match if they are exactly alike.
+   * @param s The subject of the triple to search for.
+   * @param p The predicate of the triple to search for.
+   * @param o The object of the triple to search for.
+   * @return <code>true</code> only if the triple exists in the graph.
    */
-  public List<PropertyValue> getProperties(String s) throws URISyntaxException {
-	return getProperties(new Uri(s));
+  public boolean isAsserted(SubjectNode s, PredicateNode p, ObjectNode o) {
+    TwoTierIndex<PredicateNode,ObjectNode> po = spo.get(s);
+    if (po != null) {
+      Collection<ObjectNode> os = po.get(p);
+      return os != null && os.contains(o);
+    }
+    return false;
   }
 
   /**
@@ -163,15 +176,6 @@ public abstract class AbstractGraph implements Graph, WritableGraph, SearchableG
     return result;
   }
 
-  public List<ObjectNode> getValues(SubjectNode s, URI p) { return getValues(s, new Uri(p)); }
-  public List<ObjectNode> getValues(URI s, PredicateNode p) { return getValues(new Uri(s), p); }
-  public List<ObjectNode> getValues(URI s, URI p) { return getValues(new Uri(s), new Uri(p)); }
-  public List<ObjectNode> getValues(SubjectNode s, String p) throws URISyntaxException { return getValues(s, new Uri(p)); }
-  public List<ObjectNode> getValues(String s, PredicateNode p) throws URISyntaxException { return getValues(new Uri(s), p); }
-  public List<ObjectNode> getValues(URI s, String p) throws URISyntaxException { return getValues(new Uri(s), new Uri(p)); }
-  public List<ObjectNode> getValues(String s, URI p) throws URISyntaxException { return getValues(new Uri(s), new Uri(p)); }
-  public List<ObjectNode> getValues(String s, String p) throws URISyntaxException { return getValues(new Uri(s), new Uri(p)); }
-
   /**
    * Gets a single value for a given property on a subject.
    * @param s The subject to get the properties for.
@@ -187,16 +191,7 @@ public abstract class AbstractGraph implements Graph, WritableGraph, SearchableG
     return result;
   }
 
-  public ObjectNode getValue(SubjectNode s, URI p) { return getValue(s, new Uri(p)); }
-  public ObjectNode getValue(URI s, PredicateNode p) { return getValue(new Uri(s), p); }
-  public ObjectNode getValue(URI s, URI p) { return getValue(new Uri(s), new Uri(p)); }
-  public ObjectNode getValue(SubjectNode s, String p) throws URISyntaxException { return getValue(s, new Uri(p)); }
-  public ObjectNode getValue(String s, PredicateNode p) throws URISyntaxException { return getValue(new Uri(s), p); }
-  public ObjectNode getValue(URI s, String p) throws URISyntaxException { return getValue(new Uri(s), new Uri(p)); }
-  public ObjectNode getValue(String s, URI p) throws URISyntaxException { return getValue(new Uri(s), new Uri(p)); }
-  public ObjectNode getValue(String s, String p) throws URISyntaxException { return getValue(new Uri(s), new Uri(p)); }
-
- /**
+  /**
    * Gets an rdf:List property from an object. If more than one
    * value exists for this property, then returns the first and assumes it's a list.
    * @param s The subject to get the property for.
@@ -206,15 +201,6 @@ public abstract class AbstractGraph implements Graph, WritableGraph, SearchableG
   public List<ObjectNode> getRdfList(SubjectNode s, PredicateNode p) {
     return getList(getValue(s, p));
   }
-
-  public List<ObjectNode> getRdfList(SubjectNode s, URI p) { return getRdfList(s, new Uri(p)); }
-  public List<ObjectNode> getRdfList(URI s, PredicateNode p) { return getRdfList(new Uri(s), p); }
-  public List<ObjectNode> getRdfList(URI s, URI p) { return getRdfList(new Uri(s), new Uri(p)); }
-  public List<ObjectNode> getRdfList(SubjectNode s, String p) throws URISyntaxException { return getRdfList(s, new Uri(p)); }
-  public List<ObjectNode> getRdfList(String s, PredicateNode p) throws URISyntaxException { return getRdfList(new Uri(s), p); }
-  public List<ObjectNode> getRdfList(URI s, String p) throws URISyntaxException { return getRdfList(new Uri(s), new Uri(p)); }
-  public List<ObjectNode> getRdfList(String s, URI p) throws URISyntaxException { return getRdfList(new Uri(s), new Uri(p)); }
-  public List<ObjectNode> getRdfList(String s, String p) throws URISyntaxException { return getRdfList(new Uri(s), new Uri(p)); }
 
   /**
    * Get an RDF list from an object node that is refered to as being of type rdf:List
@@ -258,27 +244,84 @@ public abstract class AbstractGraph implements Graph, WritableGraph, SearchableG
     return results;
   }
 
-  public List<SubjectNode> getSubjects(PredicateNode s, URI p) { return getSubjects(s, new Uri(p)); }
-  public List<SubjectNode> getSubjects(URI s, ObjectNode p) { return getSubjects(new Uri(s), p); }
-  public List<SubjectNode> getSubjects(URI s, URI p) { return getSubjects(new Uri(s), new Uri(p)); }
-  public List<SubjectNode> getSubjects(String s, ObjectNode p) throws URISyntaxException { return getSubjects(new Uri(s), p); }
-  public List<SubjectNode> getSubjects(String s, URI p) throws URISyntaxException { return getSubjects(new Uri(s), new Uri(p)); }
-
   /**
-   * Gets all the subjects that share a given property/value.
-   * This method accumulates the subjects, though a grph with more complete indexes
-   * could just look it up.
-   * @param property The property being looked for.
-   * @param value The value being looked for, as a string.
-   * @return The subjects that have the value for the property.
+   * Tests if a resource exists anywhere in the graph.
+   * @param r The resource to test.
+   * @return <code>true</code> only if the resource is used somewhere in the graph.
    */
-  public List<SubjectNode> getSubjects(PredicateNode property, String value) {
-    return getSubjects(property, new Literal(value));
+  public boolean doesResourceExist(Node r) {
+    return false;
   }
 
-  public List<SubjectNode> getSubjects(URI s, String p) { return getSubjects(new Uri(s), p); }
-  public List<SubjectNode> getSubjects(String s, String p) throws URISyntaxException { return getSubjects(new Uri(s), p); }
+  /**
+   * Gets all the subjects in the graph.
+   * @return All the subjects in the graph.
+   */
+  public Collection<SubjectNode> getSubjects() {
+    return spo.getKeySet();
+  }
 
+  /**
+   * Gets all the predicates in the graph.
+   * @return All the predicatess in the graph.
+   */
+  public Collection<PredicateNode> getPredicates() {
+    Set<PredicateNode> predicates = new HashSet<PredicateNode>();
+    for (Trio<SubjectNode,PredicateNode,ObjectNode> t: spo.getEntries()) predicates.add(t._2);
+    return predicates;
+  }
+
+  /**
+   * Gets all the objects in the graph.
+   * @return All the objects in the graph.
+   */
+  public Collection<ObjectNode> getObjects() {
+    Set<ObjectNode> objects = new HashSet<ObjectNode>();
+    for (Trio<SubjectNode,PredicateNode,ObjectNode> t: spo.getEntries()) objects.add(t._3);
+    return objects;
+  }
+
+
+  /**
+   * Writes the contents of the graph to an output stream as N3.
+   * @param out The stream to write to.
+   */
+  @Override
+  public void exportN3(OutputStream out) throws IOException {
+    exportN3(out, null);
+  }
+
+  /**
+   * Writes the contents of the graph to an output stream as N3.
+   * @param out The stream to write to.
+   * @param base The base to write to.
+   */
+  @Override
+  public void exportN3(OutputStream out, URI base) throws IOException {
+    GraphWriter writer = new N3Writer(this, base);
+    writer.scanNamespaces();
+    writer.writeTo(out);
+  }
+
+  /**
+   * Writes the contents of the graph to an output stream as RDF/XML.
+   * @param out The stream to write to.
+   */
+  @Override
+  public void exportXML(OutputStream out) throws IOException {
+    exportXML(out, null);
+  }
+
+  /**
+   * Writes the contents of the graph to an output stream as RDF/XML.
+   * @param out The stream to write to.
+   * @param base The base to write to.
+   */
+  public void exportXML(OutputStream out, URI base) throws IOException {
+    GraphWriter writer = new XMLWriter(this, base);
+    writer.scanNamespaces();
+    writer.writeTo(out);
+  }
 
   /**
    * Gets the entire graph as a list of triples.
@@ -431,6 +474,14 @@ public abstract class AbstractGraph implements Graph, WritableGraph, SearchableG
      */
     Set<Map.Entry<A,TwoTierIndex<B,C>>> getRawEntries() {
       return index.entrySet();
+    }
+
+    /**
+     * Returns the keys from this index. For internal use within the outer class.
+     * @return a Set of keys from the index.
+     */
+    Set<A> getKeySet() {
+      return index.keySet();
     }
 
   }

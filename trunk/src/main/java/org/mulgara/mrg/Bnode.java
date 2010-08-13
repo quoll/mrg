@@ -22,7 +22,7 @@ package org.mulgara.mrg;
 public class Bnode implements SubjectNode, ObjectNode {
 
   /** The type identifier for Bnode */
-  private static final int TYPE_ID = 2;
+  public static final int TYPE_ID = 2;
 
   /** An internal counter to help create anonymous nodes */
   private static long idCounter = 0;
@@ -63,7 +63,14 @@ public class Bnode implements SubjectNode, ObjectNode {
    * Represents this node as a string.
    */
   public String toString() {
-    return "<" + label + ">";
+    return label;
+  }
+
+  /**
+   * Gets the "label" portion of the node ID
+   */
+  public String getLabel() {
+    return label.substring(2);
   }
 
   /**

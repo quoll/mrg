@@ -17,49 +17,49 @@
 package org.mulgara.util;
 
 /**
- * A threesom of values
+ * A threesome of values
  */
-public class Trio<A,B,C> {
+public class Trio<X,Y,Z> {
 
   /** The first. */
-  public final A _1;
+  public final X _1;
 
   /** The second. */
-  public final B _2;
+  public final Y _2;
 
   /** The third. */
-  public final C _3;
+  public final Z _3;
 
   /**
    * Create a new trio.
-   * @param a The first part of the trio.
-   * @param b The second part of the trio.
-   * @param c The third part of the trio.
+   * @param x The first part of the trio.
+   * @param y The second part of the trio.
+   * @param z The third part of the trio.
    */
-  public Trio(A a, B b, C c) {
-    _1 = a;
-    _2 = b;
-    _3 = c;
+  public Trio(X x, Y y, Z z) {
+    _1 = x;
+    _2 = y;
+    _3 = z;
   }
 
   /**
    * Gets the first
    */
-  public A getFirst() {
+  public X getFirst() {
     return _1;
   }
 
   /**
    * Gets the second
    */
-  public B getSecond() {
+  public Y getSecond() {
     return _2;
   }
 
   /**
    * Gets the third
    */
-  public C getThird() {
+  public Z getThird() {
     return _3;
   }
 
@@ -67,7 +67,7 @@ public class Trio<A,B,C> {
    * Equality method. Based on the wrapped URI.
    */
   public boolean equals(Object o) {
-    return (o instanceof Trio) && ((Trio)o)._1.equals(_1) && ((Trio)o)._2.equals(_2) && ((Trio)o)._3.equals(_3);
+    return (o instanceof Trio) && ((Trio<?,?,?>)o)._1.equals(_1) && ((Trio<?,?,?>)o)._2.equals(_2) && ((Trio<?,?,?>)o)._3.equals(_3);
   }
 
   /**
