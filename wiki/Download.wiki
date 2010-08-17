@@ -7,5 +7,7 @@ If downloading the binary JAR file, then you will also need to get the following
   * [http://site.icu-project.org/download ICU4j] - ([http://source.icu-project.org/repos/icu/icu/trunk/license.html ICU Licence])
   * [http://xerces.apache.org/mirrors.cgi#binary Xerces2 Java] - ([http://www.apache.org/licenses/LICENSE-2.0.html Apache 2.0 License])
 
+These files are only required if you are parsing RDF/XML or N3 files, and can be skipped otherwise. Ultimately, I'd like to get rid of these dependencies.
+
 ----
 If downloading as source code, then a `pom.xml` file is provided for building with [http://maven.apache.org/ Maven]. This will automatically download all dependencies.
