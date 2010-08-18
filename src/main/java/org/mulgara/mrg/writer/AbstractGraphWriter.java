@@ -120,7 +120,9 @@ public class AbstractGraphWriter {
     for (Triple t: graph.getTriples()) {
       if (t.getSubject().getTypeId() == Uri.TYPE_ID) scanUri(t.getSubject());
       scanUri(t.getPredicate());
-      if (t.getObject().getTypeId() == Uri.TYPE_ID) scanUri(t.getObject());
+      // Skip objects can often be strange.
+      // If they're namespaced they usually show up as subjects.
+      // if (t.getObject().getTypeId() == Uri.TYPE_ID) scanUri(t.getObject());
     }
   }
 
@@ -151,9 +153,19 @@ public class AbstractGraphWriter {
     if (namespace.equals(base) || rns.containsKey(namespace)) return;
     // look in the known namespaces
     String prefix = knownNamespaces.get(namespace);
-    rns.put(namespace, (prefix != null) ? prefix : prefixGen.create());
+    if (testNamespace(namespace)) {
+      rns.put(namespace, (prefix != null) ? prefix : prefixGen.create());
+    }
   }
 
+  /**
+   * Tests a potential namespace to see if it is considered to be OK.
+   * @param ns The namespace to test.
+   * @return <code>true</code> iff the namespace can be used in this type of document.
+   */
+  protected boolean testNamespace(String ns) {
+    return true;
+  }
 }
 
 

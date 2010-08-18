@@ -152,6 +152,8 @@ public abstract class WriterTest extends TestCase {
     IndexedGraph g = new IndexedGraph();
     g.insert(new Uri("http://dbpedia.org/resource/Owen_Gingerich"), new Uri("http://www.stnews.org/guide.php?guide=Intelligent%20ref"), new Uri("http://www.stnews.org/guide.php?guide=Intelligent%20Design"));
     g.insert(new Uri("http://mpii.de/yago/resource/Owen_Gingerich"), new Uri("http://www.w3.org/2002/07/owl#sameAs"), new Uri("http://dbpedia.org/resource/Owen_Gingerich"));
+    g.insert(new Uri("http://129.82.76.41:591/FMPro?-db=ASAdb49.fm4&-lay=Layout1&-format=%2FASAdb%2Fresults2.html&-op=contains&-LOP=or&-sortfield=First+Author&-sortorder=ascending&-sortfield=volume_no&-sortorder=descending&-Max=All&Title=&-op=bw&First+Author=%22Gingerich%2C+Owen%22&-op=contains&Date=&-find=&-find=Search"),
+        new Uri("http://dbpedia.org/property/referenceOf"), new Uri("http://dbpedia.org/resource/Owen_Gingerich"));
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     export(g, out, URI.create("http://dbpedia.org.org/"));
     if (debugViewing) {

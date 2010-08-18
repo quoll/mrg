@@ -236,12 +236,12 @@ public class XMLWriter extends AbstractGraphWriter implements GraphWriter {
   protected String formatForAbout(Uri u) {
     String str = u.getURI().toString();
     if (base != null && str.startsWith(base)) {
-      return str.substring(base.length());
+      return esc(str.substring(base.length()));
     }
     String name = str.substring(Strings.startOfName(str));
     String namespace = str.substring(0, str.length() - name.length());
     String prefix = rns.get(namespace);
-    return (prefix == null || isInvalidEntity(namespace)) ? str : new StringBuilder("&").append(prefix).append(";").append(name).toString();
+    return (prefix == null || isInvalidEntity(namespace)) ? esc(str) : new StringBuilder("&").append(esc(prefix)).append(";").append(name).toString();
   }
 
 
@@ -272,8 +272,30 @@ public class XMLWriter extends AbstractGraphWriter implements GraphWriter {
     return formatUri((Uri)p);
   }
 
-  private static final boolean isInvalidEntity(String ns) {
-    return (ns.indexOf('%') >= 0 || ns.indexOf('&') >= 0);
+  /**
+   * Tests a potential namespace to see if it is considered to be OK.
+   * @param ns The namespace to test.
+   * @return <code>true</code> iff the namespace can be used in this type of document.
+   */
+  protected boolean testNamespace(String ns) {
+    return ns.indexOf('&') == -1;
   }
 
+  /**
+   * Tests a potential entity value to see if it can be used.
+   * @param e The entity value to test.
+   * @return <code>true</code> iff the value can be used as an entity value.
+   */
+  private static final boolean isInvalidEntity(String e) {
+    return (e.indexOf('%') >= 0 || e.indexOf('&') >= 0);
+  }
+
+  /**
+   * Escapes a string to make it suitable for use in an attribute
+   * @param s The string to escape.
+   * @return A new string with illegal characters mapped to entities.
+   */
+  private static final String esc(String s) {
+    return s.replace("&", "&amp;");
+  }
 }
