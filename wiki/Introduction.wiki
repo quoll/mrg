@@ -34,4 +34,4 @@ The Graph API was included with this project to make accessing graph data much e
 
 MRG stands for Mulgara RDF Graphs. Initially I tried to use RG, which seems to clash with fewer other things, but Google Code didn't like a short name like that. So it got the "Mulgara" label, since it is vaguely related, even though it was written from scratch.
 
-It's _hard_ to find a name that isn't being used and doesn't sound terrible (compare with jSPARQLc).
+It's _hard_ to find a name that isn't being used and doesn't sound terrible.
