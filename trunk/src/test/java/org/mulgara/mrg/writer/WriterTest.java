@@ -36,7 +36,7 @@ import junit.framework.TestCase;
 
 public abstract class WriterTest extends TestCase {
 
-  static final boolean debugViewing = true;
+  static final boolean debugViewing = false;
 
   public WriterTest() {
     super();
