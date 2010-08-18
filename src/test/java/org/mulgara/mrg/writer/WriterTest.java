@@ -36,7 +36,7 @@ import junit.framework.TestCase;
 
 public abstract class WriterTest extends TestCase {
 
-  static final boolean debugViewing = false;
+  static final boolean debugViewing = true;
 
   public WriterTest() {
     super();
@@ -134,6 +134,28 @@ public abstract class WriterTest extends TestCase {
     export(g, out, URI.create("http://fred.org/"));
     if (debugViewing) {
       System.out.println("++++++++++++++++++++++++++++");
+      System.out.println(out.toString("UTF-8"));
+    }
+    Graph g2 = newParser(out.toString("UTF-8")).getGraph();
+    assertEquals(g.size(), g2.size());
+    for (Triple t: g2.getTriples()) {
+      SubjectNode s = t.getSubject();
+      PredicateNode p = t.getPredicate();
+      ObjectNode o = t.getObject();
+      if (s instanceof Bnode) s = null;
+      if (o instanceof Bnode) o = null;
+      assertTrue("Graph does not contain: " + t, g.match(s, p, o).hasNext());
+    }
+  }
+
+  public void testStrangeNamespace() throws Exception {
+    IndexedGraph g = new IndexedGraph();
+    g.insert(new Uri("http://dbpedia.org/resource/Owen_Gingerich"), new Uri("http://www.stnews.org/guide.php?guide=Intelligent%20ref"), new Uri("http://www.stnews.org/guide.php?guide=Intelligent%20Design"));
+    g.insert(new Uri("http://mpii.de/yago/resource/Owen_Gingerich"), new Uri("http://www.w3.org/2002/07/owl#sameAs"), new Uri("http://dbpedia.org/resource/Owen_Gingerich"));
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    export(g, out, URI.create("http://dbpedia.org.org/"));
+    if (debugViewing) {
+      System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
       System.out.println(out.toString("UTF-8"));
     }
     Graph g2 = newParser(out.toString("UTF-8")).getGraph();

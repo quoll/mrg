@@ -67,6 +67,16 @@ public class XMLWriter extends AbstractGraphWriter implements GraphWriter {
   }
 
   /**
+   * Scans the graph for valid namespaces. Adds in the RDF namespace by default, even
+   * if this is not explicitly used in the graph.
+   * @see org.mulgara.mrg.writer.AbstractGraphWriter#scanNamespaces()
+   */
+  public void scanNamespaces() {
+    rns.put(org.mulgara.mrg.vocab.uri.RDF.BASE, org.mulgara.mrg.vocab.uri.RDF.PREFIX);
+    super.scanNamespaces();
+  }
+
+  /**
    * @see org.mulgara.mrg.writer.GraphWriter#writeTo(java.io.OutputStream)
    */
   public void writeTo(OutputStream out) {
@@ -86,7 +96,10 @@ public class XMLWriter extends AbstractGraphWriter implements GraphWriter {
     if (!rns.isEmpty()) {
       o.print("<!DOCTYPE rdf:RDF [");
       for (Map.Entry<String,String> n: rns.entrySet()) {
-        o.print(format("\n  <!ENTITY %s '%s'>", n.getValue(), n.getKey()));
+        String ns = n.getKey();
+        if (!isInvalidEntity(ns)) {
+          o.print(format("\n  <!ENTITY %s '%s'>", n.getValue(), n.getKey()));
+        }
       }
       o.println("]>\n");
     }
@@ -101,7 +114,12 @@ public class XMLWriter extends AbstractGraphWriter implements GraphWriter {
         first = false;
         indent = " ";
       } else indent = "\n" + indent(4) + " ";
-      o.print(format("%sxmlns:%s=\"&%s;\"", indent, n.getValue(), n.getValue()));
+      String ns = n.getKey();
+      if (isInvalidEntity(ns)) {
+        o.print(format("%sxmlns:%s=\"%s\"", indent, n.getValue(), n.getKey()));
+      } else {
+        o.print(format("%sxmlns:%s=\"&%s;\"", indent, n.getValue(), n.getValue()));
+      }
     }
     if (base != null) {
       String indent = first ? " " : "\n         ";
@@ -223,7 +241,7 @@ public class XMLWriter extends AbstractGraphWriter implements GraphWriter {
     String name = str.substring(Strings.startOfName(str));
     String namespace = str.substring(0, str.length() - name.length());
     String prefix = rns.get(namespace);
-    return (prefix == null) ? str : new StringBuilder("&").append(prefix).append(";").append(name).toString();
+    return (prefix == null || isInvalidEntity(namespace)) ? str : new StringBuilder("&").append(prefix).append(";").append(name).toString();
   }
 
 
@@ -252,6 +270,10 @@ public class XMLWriter extends AbstractGraphWriter implements GraphWriter {
   protected String formatUri(PredicateNode p) {
     if (p.equals(RDF.TYPE)) return "a";
     return formatUri((Uri)p);
+  }
+
+  private static final boolean isInvalidEntity(String ns) {
+    return (ns.indexOf('%') >= 0 || ns.indexOf('&') >= 0);
   }
 
 }
