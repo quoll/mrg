@@ -21,7 +21,7 @@ The current implementations of Graph are:
 
 Graphs are loaded using a one of the parsers. For the moment, parsers will always return an instance of !GraphImpl containing the parsed data.
 
-At this stage, the Graph API only supports Turtle ([http://www.w3.org/DesignIssues/Notation3.html N3]) and [http://www.w3.org/TR/rdf-syntax-grammar/ RDF/XML] files. The parsers for these formats are:
+At this stage, the Graph API only supports Turtle ([http://www.w3.org/DesignIssues/Notation3.html N3]) and [http://www.w3.org/TR/rdf-syntax-grammar/ RDF/XML] files. Turtle is the RDF subset of N3, and also supports NTriples (.nt) files. The parsers for these formats are:
  * org.mulgara.rdf.parser.!N3GraphParser
  * org.mulgara.rdf.parser.XMLGraphParser
 
