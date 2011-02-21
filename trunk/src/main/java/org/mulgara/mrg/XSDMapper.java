@@ -97,7 +97,7 @@ public class XSDMapper {
   }
 
   public Literal literal(Date d) {
-    return new Literal(d.toString(), d, DATE);
+    return new Literal(dateFormat.format(d), d, DATE_TIME);
   }
 
   public Literal literal(float n) {
@@ -203,7 +203,7 @@ public class XSDMapper {
   }
 
   static {
-    typeMapper.put(Date.class, DATE);
+    typeMapper.put(Date.class, DATE_TIME);
     typeMapper.put(URI.class, ANY_URI);
     typeMapper.put(QName.class, QNAME);
     typeMapper.put(Boolean.class, BOOLEAN);
