@@ -57,7 +57,7 @@ public class Literal implements ObjectNode {
   public Literal(String text, URI type) {
     this.text = text.intern();
     this.type = type;
-    data = XSDMapper.toData(type, text);
+    data = toData(type, text);
     lang = null;
   }
 
@@ -105,7 +105,7 @@ public class Literal implements ObjectNode {
       this.lang = null;
       if (type != null) {
         this.type = type;
-        data = XSDMapper.toData(type, text);
+        data = toData(type, text);
       } else {
         this.type = null;
         data = null;
@@ -227,6 +227,15 @@ public class Literal implements ObjectNode {
    */
   public Object toJava() {
     if (data != null) return data;
+    return toData(type, text);
+  }
+
+  /**
+   * Internal method for converting the literal to Java data. Chooses the best data
+   * type available, or text if the data cannot be converted.
+   * @return a Java object with the literal data in it.
+   */
+  private static Object toData(URI type, String text) {
     try {
       if (type != null) return XSDMapper.toData(type, text);
     } catch (Exception e) {
