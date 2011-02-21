@@ -18,6 +18,7 @@ package org.mulgara.mrg.writer;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.Collection;
 import java.util.HashMap;
@@ -40,6 +41,8 @@ import org.mulgara.util.Strings;
  * Creates a writer specifically for N3 output.
  */
 public class N3Writer extends AbstractGraphWriter implements GraphWriter {
+
+  private static final String UTF8 = "UTF-8";
 
   /** A cached copy of the object nodes for the graph */
   private Collection<ObjectNode> objects = null;
@@ -65,7 +68,12 @@ public class N3Writer extends AbstractGraphWriter implements GraphWriter {
    * @see org.mulgara.mrg.writer.GraphWriter#writeTo(java.io.OutputStream)
    */
   public void writeTo(OutputStream out) {
-    PrintStream o = new PrintStream(out);
+    PrintStream o;
+    try {
+      o = new PrintStream(out, false, UTF8);
+    } catch (UnsupportedEncodingException e) {
+      throw new Error("Unable to load UTF-8 encoding", e);
+    }
     if (base != null) o.println(String.format("@base <%s>.", base));
     for (Map.Entry<String,String> n: rns.entrySet()) {
       o.println(String.format("@prefix %s: <%s> .", n.getValue(), n.getKey()));
@@ -94,6 +102,7 @@ public class N3Writer extends AbstractGraphWriter implements GraphWriter {
         }
       }
     }
+    o.flush();
   }
 
   /**
@@ -210,7 +219,7 @@ public class N3Writer extends AbstractGraphWriter implements GraphWriter {
     int i = 0;
     while (i < b.length()) {
       int codePoint = b.codePointAt(i);
-      if (codePoint > 0x0FFF) {
+      if (codePoint > 0x07FF) {
         String str;
         int inc;
         if (codePoint > 0xFFFF) {
@@ -247,7 +256,7 @@ public class N3Writer extends AbstractGraphWriter implements GraphWriter {
     int i = 0;
     while (i < b.length()) {
       char c = b.charAt(i);
-      if ((int)c > 0x0FFF) {
+      if ((int)c >= 0x7F) {
         String str = String.format("\\u%04X", (int)c);
         b.replace(i, i + 1, str);
         i += 6;
