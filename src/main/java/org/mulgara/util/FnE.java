@@ -16,21 +16,23 @@
 
 package org.mulgara.util;
 
+import java.util.concurrent.Callable;
+
 /**
  * Functor template for a function that accepts no parameters, and has a return type.
  * An exception may be thrown.
- * @param <T1> The return type of the function.
+ * @param <R> The return type of the function.
  * @param <E> The type of an exception that may be thrown from the function.
  *
  * @author Paul Gearon
  */
-public interface FnE<T1,E extends Exception> {
+public interface FnE<R,E extends Exception> extends Callable<R> {
 
   /**
    * Declares a function template that takes no arguments and returns a value.
    * @return A calculated value.
    * @throws E Can throw an exception of this type.
    */
-  T1 fn() throws E;
+  R call() throws E;
 
 }

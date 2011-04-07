@@ -33,7 +33,7 @@ public class F {
    * @return A new function closure that takes no parameters.
    */
   static final <T1,T2> Fn<T2> curry(final Fn1<T1,T2> fna, final T1 arg) {
-    return new Fn<T2>() { public T2 fn() { return fna.fn(arg); } };
+    return new Fn<T2>() { public T2 call() { return fna.call(arg); } };
   }
 
   /**
@@ -48,7 +48,7 @@ public class F {
    *         a value of type R..
    */
   static final <T1,T2,R> Fn1<T2,R> curry(final Fn2<T1,T2,R> fna, final T1 arg) {
-    return new Fn1<T2,R>() { public R fn(T2 a) { return fna.fn(arg, a); } };
+    return new Fn1<T2,R>() { public R call(T2 a) { return fna.call(arg, a); } };
   }
 
 }

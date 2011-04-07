@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Paul Gearon.
+ * Copyright 2011 Paul Gearon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +17,28 @@
 package org.mulgara.util;
 
 /**
- * Functor template for a function that takes arguments of two different types
- * and returns a value of a third type, possibly throwing an exception.
+ * Functor template for a function that takes arguments of four different types
+ * and returns a value of a fifth type, possibly throwing an exception.
  * @param <T1> The type of the first parameter of the function.
  * @param <T2> The type of the second parameter of the function.
+ * @param <T3> The type of the third parameter of the function.
+ * @param <T4> The type of the fourth parameter of the function.
  * @param <R> The return type of the function.
  * @param <E> The type of exception that may be thrown from the function.
  *
  * @author Paul Gearon
  */
-public interface Fn2E<T1,T2,R,E extends Exception> {
+public interface Fn4E<T1,T2,T3,T4,R,E extends Exception> {
 
   /**
-   * Declares a function template that takes two arguments and returns a value of
+   * Declares a function template that takes three arguments and returns a value of
    * another type.
    * @param arg1 The first argument.
    * @param arg2 The second argument.
-   * @return A value based on arg1 and arg2.
+   * @param arg3 The third argument.
+   * @param arg4 The fourth argument.
+   * @return A value based on arg1, arg2, arg3 and arg4.
    * @throws E An exception that may be thrown from this method.
    */
-  R call(T1 arg1, T2 arg2) throws E;
+  R call(T1 arg1, T2 arg2, T3 arg3, T4 arg4) throws E;
 }

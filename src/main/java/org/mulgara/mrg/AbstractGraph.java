@@ -496,7 +496,7 @@ public abstract class AbstractGraph extends AbstractGraphExt implements Graph, W
     private final Map<A,Collection<B>> index;
 
     private final PairFactory<A,B> pairFactory = new PairFactory<A,B>() {
-      public Pair<A,B> fn(A a, B b) { return new Pair<A,B>(a, b); }
+      public Pair<A,B> call(A a, B b) { return new Pair<A,B>(a, b); }
     };
 
     /**
@@ -552,7 +552,7 @@ public abstract class AbstractGraph extends AbstractGraphExt implements Graph, W
       for (Map.Entry<A,Collection<B>> entry: index.entrySet()) {
         A key = entry.getKey();
         for (B value: entry.getValue()) {
-          result.add(factory.fn(key, value));
+          result.add(factory.call(key, value));
         }
       }
       return result;
@@ -630,7 +630,7 @@ public abstract class AbstractGraph extends AbstractGraphExt implements Graph, W
 
   /** A factory class for constructing PropertyValues as an extension of Pairs. */
   private static class PropValFactory implements PairFactory<PredicateNode,ObjectNode> {
-    public PropertyValue fn(PredicateNode prop, ObjectNode val) {
+    public PropertyValue call(PredicateNode prop, ObjectNode val) {
       return new PropertyValue(prop, val);
     }
   }

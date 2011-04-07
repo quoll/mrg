@@ -20,12 +20,12 @@ package org.mulgara.util;
  * Functor template for a function that takes one type and returns another.
  * An exception may be thrown.
  * @param <T1> The parameter type of the function.
- * @param <T2> The return type of the function.
+ * @param <R> The return type of the function.
  * @param <E> The exception type that the function may throw.
  *
  * @author Paul Gearon
  */
-public interface Fn1E<T1,T2,E extends Exception> {
+public interface Fn1E<T1,R,E extends Exception> {
 
   /**
    * Declares a function template that takes one argument and returns a value of
@@ -34,5 +34,5 @@ public interface Fn1E<T1,T2,E extends Exception> {
    * @return A value based on arg.
    * @throws E Can throw an exception of this type.
    */
-  T2 fn(T1 arg) throws E;
+  R call(T1 arg) throws E;
 }

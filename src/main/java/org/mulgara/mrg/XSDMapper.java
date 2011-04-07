@@ -61,7 +61,7 @@ public class XSDMapper {
   public static Object toData(URI type, String text) {
     Fn1<String,Object> cons = constructors.get(type);
     if (cons == null) throw new IllegalArgumentException("Unknown data type: " + type);
-    return cons.fn(text);
+    return cons.call(text);
   }
 
   /**
@@ -138,25 +138,25 @@ public class XSDMapper {
 
   static {
     constructors.put(BYTE, new Fn1<String,Object>() {
-      public Byte fn(String text) { return Byte.valueOf(text); }
+      public Byte call(String text) { return Byte.valueOf(text); }
     });
     constructors.put(SHORT, new Fn1<String,Object>() {
-      public Short fn(String text) { return Short.valueOf(text); }
+      public Short call(String text) { return Short.valueOf(text); }
     });
     constructors.put(INT, new Fn1<String,Object>() {
-      public Integer fn(String text) { return Integer.valueOf(text); }
+      public Integer call(String text) { return Integer.valueOf(text); }
     });
     constructors.put(LONG, new Fn1<String,Object>() {
-      public Long fn(String text) { return Long.valueOf(text); }
+      public Long call(String text) { return Long.valueOf(text); }
     });
     constructors.put(INTEGER, new Fn1<String,Object>() {
-      public Object fn(String text) {
+      public Object call(String text) {
         BigInteger i = new BigInteger(text);
         return (i.bitLength() >= Long.SIZE) ? i : i.longValue();
       }
     });
     constructors.put(DECIMAL, new Fn1<String,Object>() {
-      public Object fn(String text) {
+      public Object call(String text) {
         BigDecimal d = new BigDecimal(text);
         try {
           BigInteger i = d.toBigIntegerExact();
@@ -168,31 +168,31 @@ public class XSDMapper {
       }
     });
     constructors.put(FLOAT, new Fn1<String,Object>() {
-      public Float fn(String text) { return Float.valueOf(text); }
+      public Float call(String text) { return Float.valueOf(text); }
     });
     constructors.put(DOUBLE, new Fn1<String,Object>() {
-      public Double fn(String text) { return Double.valueOf(text); }
+      public Double call(String text) { return Double.valueOf(text); }
     });
     constructors.put(QNAME, new Fn1<String,Object>() {
-      public QName fn(String text) {
+      public QName call(String text) {
         int c = text.indexOf(':');
         return (c >= 0) ? new QName(text.substring(0, c), text.substring(c + 1)) : new QName(text);
       }
     });
     constructors.put(ANY_URI, new Fn1<String,Object>() {
-      public URI fn(String text) { return URI.create(text); }
+      public URI call(String text) { return URI.create(text); }
     });
     constructors.put(BOOLEAN, new Fn1<String,Object>() {
-      public Boolean fn(String text) { return Boolean.valueOf(text); }
+      public Boolean call(String text) { return Boolean.valueOf(text); }
     });
     constructors.put(HEX_BINARY, new Fn1<String,Object>() {
-      public byte[] fn(String text) { return Strings.parseHexToBytes(text); }
+      public byte[] call(String text) { return Strings.parseHexToBytes(text); }
     });
     constructors.put(STRING, new Fn1<String,Object>() {
-      public String fn(String text) { return text; }
+      public String call(String text) { return text; }
     });
     constructors.put(DATE_TIME, new Fn1<String,Object>() {
-      public Date fn(String text) {
+      public Date call(String text) {
         try {
           return dateFormat.parse(text);
         } catch (ParseException e) {

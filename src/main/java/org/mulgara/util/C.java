@@ -44,15 +44,15 @@ public class C {
    *             argument type for the operation.
    * @param <T2> The type of the elements in the result list, which is also
    *             the return type of the operation.
-   * @param <E> The exception that my be thrown from {@link Fn1E#fn(Object)}.
+   * @param <E> The exception that my be thrown from {@link Fn1E#call(Object)}.
    * @param args The input list.
    * @param op The operation to apply to the elements of the input list.
    * @return A list whose elements are the result of applying op to each element of args.
-   * @throws E An exception that may be thrown from the {@link Fn1E#fn(Object)} method.
+   * @throws E An exception that may be thrown from the {@link Fn1E#call(Object)} method.
    */
   public static final <T1,T2,E extends Exception> List<T2> map(Collection<T1> args, Fn1E<T1,T2,E> op) throws E {
     List<T2> result = new LinkedList<T2>();
-    for (T1 a: args) result.add(op.fn(a));
+    for (T1 a: args) result.add(op.call(a));
     return result;
   }
 
@@ -61,7 +61,7 @@ public class C {
    */
   public static final <T1,T2,E extends Exception> List<T2> map(T1[] args, Fn1E<T1,T2,E> op) throws E {
     List<T2> result = new ArrayList<T2>(args.length);
-    for (T1 a: args) result.add(op.fn(a));
+    for (T1 a: args) result.add(op.call(a));
     return result;
   }
 
@@ -87,7 +87,7 @@ public class C {
    */
   public static final <T1,T2> List<T2> map(T1[] args, Fn1<T1,T2> op) {
     List<T2> result = new ArrayList<T2>(args.length);
-    for (T1 a: args) result.add(op.fn(a));
+    for (T1 a: args) result.add(op.call(a));
     return result;
   }
 
