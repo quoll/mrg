@@ -21,10 +21,10 @@ package org.mulgara.util;
  * and returns a value of a third type, without throwing an exception.
  * @param <T1> The type of the first parameter for the function.
  * @param <T2> The type of the second parameter for the function.
- * @param <T3> The return type of the function.
+ * @param <R> The return type of the function.
  *
  * @author Paul Gearon
  */
-public interface Fn2<T1,T2,T3> extends Fn2E<T1,T2,T3,RuntimeException>{
+public interface Fn2<T1,T2,R> extends Fn2E<T1,T2,R,RuntimeException>{
 
 }

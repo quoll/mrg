@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Paul Gearon.
+ * Copyright 2011 Paul Gearon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,16 @@
 package org.mulgara.util;
 
 /**
- * Functor template for a function that takes one type and returns another without
- * throwing an exception.
- * @param <T1> The parameter type of the function.
+ * Functor template for a function that takes arguments of four different types
+ * and returns a value of a fifth type, without throwing an exception.
+ * @param <T1> The type of the first parameter for the function.
+ * @param <T2> The type of the second parameter for the function.
+ * @param <T3> The type of the third parameter for the function.
+ * @param <T4> The type of the fourth parameter for the function.
  * @param <R> The return type of the function.
  *
  * @author Paul Gearon
  */
-public interface Fn1<T1,R> extends Fn1E<T1,R,RuntimeException> {
+public interface Fn4<T1,T2,T3,T4,R> extends Fn4E<T1,T2,T3,T4,R,RuntimeException>{
 
 }

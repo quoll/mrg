@@ -19,10 +19,10 @@ package org.mulgara.util;
 /**
  * Functor template for a function that takes no arguments and returns a value,
  * without throwing an exception.
- * @param <T1> The return type of the function.
+ * @param <R> The return type of the function.
  *
  * @author Paul Gearon
  */
-public interface Fn<T1> extends FnE<T1,RuntimeException> {
+public interface Fn<R> extends FnE<R,RuntimeException> {
 
 }
