@@ -28,13 +28,14 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.mulgara.util.Fn1;
+import org.mulgara.util.LexicalDateTime;
 import org.mulgara.util.Strings;
 
 import static org.mulgara.mrg.vocab.uri.XSD.*;
 
 /**
  * A utility class for mapping datatypes in Java to XSD datatypes
- * and back
+ * and back.
  */
 public class XSDMapper {
 
@@ -65,7 +66,8 @@ public class XSDMapper {
   }
 
   /**
-   * Sets the locale for date parsing.
+   * Sets the static locale for date parsing. This is used for the fallback parser
+   * when dates have a non-canonical form.
    * @param style The formatting style for dates.
    * @param Locale The locale to use for date parsing.
    * @see {DateFormat#getDateInstance(int,Locale)} for details.
@@ -75,7 +77,8 @@ public class XSDMapper {
   }
 
   /**
-   * Sets the locale for date parsing.
+   * Sets the locale for date parsing. This is used for the fallback parser
+   * when dates have a non-canonical form.
    * @param dateStyle The formatting style for dates.
    * @param timeStyle The formatting style for dates.
    * @param Locale The locale to use for date parsing.
@@ -90,49 +93,50 @@ public class XSDMapper {
    * @param o The object to convert to a literal.
    * @return a new literal with the data and types set, if possible.
    */
-  public Literal literal(Object o) {
+  public static Literal literal(Object o) {
     if (BYTE_ARRAY_CLASS.isInstance(o)) return literal((byte[])o);
     URI t = typeMapper.get(o.getClass());
     return (t == null) ? new Literal(o.toString(), t, ANY_SIMPLE_TYPE) : new Literal(o.toString(), o, t);
   }
 
-  public Literal literal(Date d) {
-    return new Literal(dateFormat.format(d), d, DATE_TIME);
+  public static Literal literal(Date d) {
+    LexicalDateTime ldt = new LexicalDateTime(d.getTime());
+    return new Literal(ldt.toString(), d, DATE_TIME);
   }
 
-  public Literal literal(float n) {
+  public static Literal literal(float n) {
     return new Literal(Float.toString(n), n, FLOAT);
   }
 
-  public Literal literal(double n) {
+  public static Literal literal(double n) {
     return new Literal(Double.toString(n), n, DOUBLE);
   }
 
-  public Literal literal(byte n) {
+  public static Literal literal(byte n) {
     return new Literal(Byte.toString(n), n, BYTE);
   }
 
-  public Literal literal(short n) {
+  public static Literal literal(short n) {
     return new Literal(Short.toString(n), n, SHORT);
   }
 
-  public Literal literal(int n) {
+  public static Literal literal(int n) {
     return new Literal(Integer.toString(n), n, INT);
   }
 
-  public Literal literal(long n) {
+  public static Literal literal(long n) {
     return new Literal(Long.toString(n), n, LONG);
   }
 
-  public Literal literal(boolean n) {
+  public static Literal literal(boolean n) {
     return new Literal(Boolean.toString(n), n, BOOLEAN);
   }
 
-  public Literal literal(byte[] data) {
+  public static Literal literal(byte[] data) {
     return new Literal(Strings.toHexString(data), data, HEX_BINARY);
   }
 
-  public Literal literal(Number n) {
+  public static Literal literal(Number n) {
     return new Literal(n.toString(), n, typeMapper.get(n.getClass()));
   }
 
@@ -194,9 +198,15 @@ public class XSDMapper {
     constructors.put(DATE_TIME, new Fn1<String,Object>() {
       public Date call(String text) {
         try {
-          return dateFormat.parse(text);
-        } catch (ParseException e) {
-          throw new IllegalArgumentException("Unable to parse date: " + text, e);
+          LexicalDateTime ldt = LexicalDateTime.parseDateTime(text);
+          return new Date(ldt.getMillis());
+        } catch (ParseException e1) {
+          try {
+            // use a local format as a backup
+            return dateFormat.parse(text);
+          } catch (ParseException e) {
+            throw new IllegalArgumentException("Unable to parse date: " + text, e);
+          }
         }
       }
     });
