@@ -19,5 +19,5 @@ package org.mulgara.mrg;
 /**
  * A marker for predicate nodes.
  */
-public interface PredicateNode extends Node {
+public interface PredicateNode extends SubjectNode {
 }

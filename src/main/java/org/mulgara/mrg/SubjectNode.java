@@ -19,5 +19,5 @@ package org.mulgara.mrg;
 /**
  * A marker for subject nodes.
  */
-public interface SubjectNode extends Node {
+public interface SubjectNode extends ObjectNode {
 }
