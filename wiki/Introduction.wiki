@@ -25,6 +25,9 @@ The interfaces for the Graph API are split between various roles, so that the ap
 
   * The WritableGraph provides complete read/write access to the graph, at the triple level. This is for modifying local structures dynamically.
 
+== Graph Loading ==
+
+While graphs can be created from scratch using the AppendableGraph and WritableGraph interfaces, it is far more common to want to read a graph from a serialized format. MRG supports N3 and RDF/XML formats. For an example on how to load up data in these formats, see the page on [GraphLoading Graph Loading].
 
 == Structured Updates ==
 
