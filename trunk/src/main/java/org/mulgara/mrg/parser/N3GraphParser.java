@@ -17,6 +17,8 @@
 package org.mulgara.mrg.parser;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -39,7 +41,7 @@ public class N3GraphParser implements TurtleEventHandler, GraphParser {
   private static final Logger logger = Logger.getLogger(XMLGraphParser.class.getName());
 
   /** The graph that is parsed from the input data. */
-  private WritableGraph graph = new GraphImpl();
+  private final WritableGraph graph;
 
   /** The number of triples parsed. */
   private long triples = 0;
@@ -49,7 +51,15 @@ public class N3GraphParser implements TurtleEventHandler, GraphParser {
    * @param s The string containing the N3.
    */
   public N3GraphParser(String s) throws ParseException, IOException {
-    this(new ByteArrayInputStream(toUtf8Bytes(s)));
+    this(s, new GraphImplFactory());
+  }
+
+  /**
+   * Create a graph from a file.
+   * @param f The file containing the N3.
+   */
+  public N3GraphParser(File f) throws ParseException, IOException {
+    this(f, new GraphImplFactory());
   }
 
   /**
@@ -57,6 +67,34 @@ public class N3GraphParser implements TurtleEventHandler, GraphParser {
    * @param is The input stream with the graph data.
    */
   public N3GraphParser(InputStream is) throws ParseException, IOException {
+    this(is, new GraphImplFactory());
+  }
+
+  /**
+   * Create a graph from a string.
+   * @param s The string containing the N3.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public N3GraphParser(String s, GraphFactory graphFactory) throws ParseException, IOException {
+    this(new ByteArrayInputStream(toUtf8Bytes(s)), graphFactory);
+  }
+
+  /**
+   * Create a graph from a file.
+   * @param f The file containing the N3.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public N3GraphParser(File f, GraphFactory graphFactory) throws ParseException, IOException {
+    this(new FileInputStream(f), graphFactory);
+  }
+
+  /**
+   * Create a graph from an InputStream.
+   * @param is The input stream with the graph data.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public N3GraphParser(InputStream is, GraphFactory graphFactory) throws ParseException, IOException {
+    graph = graphFactory.createGraph();
     try {
       TurtleParser parser = new TurtleParser(is);
       parser.setEventHandler(this);
