@@ -38,4 +38,18 @@ public interface AppendableGraph extends Graph {
    */
   public boolean insert(Triple triple);
 
+  /**
+   * Adds the contents of another graph to this one, creating new blank nodes as required
+   * (not re-using the blank nodes from the original graph).
+   * @param g The graph to merge into this one.
+   * @return The current graph, after modification.
+   */
+  public Graph mergeInto(Graph g);
+
+  /**
+   * Adds the contents of another graph to this one, re-using all the blank nodes from the new graph.
+   * @param g The graph to merge into this one.
+   * @return The current graph, after modification.
+   */
+  public Graph unionInto(Graph g);
 }
