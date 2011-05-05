@@ -47,7 +47,7 @@ import static org.mulgara.mrg.vocab.RDF.*;
  * to be more efficiently implemented. An example of this is shown in {@link IndexedGraph}.
  * TODO: test objects on insertion to avoid storing duplicate nodes
  */
-public abstract class AbstractGraph extends AbstractGraphExt implements Graph, WritableGraph, SearchableGraph {
+public abstract class AbstractGraph extends AbstractGraphExt implements Graph, WritableGraph {
 
   /** The spo index */
   ThreeTierIndex<SubjectNode,PredicateNode,ObjectNode> spo = new ThreeTierIndex<SubjectNode,PredicateNode,ObjectNode>();
@@ -85,7 +85,7 @@ public abstract class AbstractGraph extends AbstractGraphExt implements Graph, W
    * @return <code>true</code> if the triple was already in the graph.
    */
   public boolean insert(Triple triple) {
-    return spo.put(triple.getSubject(), triple.getPredicate(), triple.getObject());
+    return insert(triple.getSubject(), triple.getPredicate(), triple.getObject());
   }
 
   /**
@@ -379,14 +379,32 @@ public abstract class AbstractGraph extends AbstractGraphExt implements Graph, W
   }
 
   /**
-   * Find all triples that match a given pattern.
+   * Find all triples that match a given pattern. The resulting iterator is live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * If this is a possibility, then use {@link #matchSubgraph(SubjectNode, PredicateNode, ObjectNode)} instead.
    * @param s The subject of the triples to match. If <code>null</code> that all subjects match.
    * @param p The predicate of the triple to add. If <code>null</code> that all predicates match.
    * @param o The object of the triple to add. If <code>null</code> that all objects match.
-   * @return A Collection of the matching triples.
+   * @return An Iterator on the matching triples.
    */
   public Iterator<Triple> match(SubjectNode s, PredicateNode p, ObjectNode o) {
     return new FilteredIterator(s, p, o, getTriples());
+  }
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples. To avoid the overhead of this operation, use
+   * {@link #match(SubjectNode, PredicateNode, ObjectNode)} instead.
+   * @param s The subject of the triples to match. If <code>null</code> that all subjects match.
+   * @param p The predicate of the triple to add. If <code>null</code> that all predicates match.
+   * @param o The object of the triple to add. If <code>null</code> that all objects match.
+   * @return A Graph containing only the matching triples.
+   */
+  public Graph matchSubgraph(SubjectNode s, PredicateNode p, ObjectNode o) {
+    AppendableGraph g = createSelf();
+    Iterator<Triple> data = match(s, p, o);
+    while (data.hasNext()) g.insert(data.next());
+    return g;
   }
 
   /**
@@ -677,6 +695,19 @@ public abstract class AbstractGraph extends AbstractGraphExt implements Graph, W
   private static class PropValFactory implements PairFactory<PredicateNode,ObjectNode> {
     public PropertyValue call(PredicateNode prop, ObjectNode val) {
       return new PropertyValue(prop, val);
+    }
+  }
+
+  /**
+   * Creates a new instance of the current Graph type.
+   * On error, will just return a simple GraphImpl.
+   * @return A empty graph of the same type as this one.
+   */
+  private AppendableGraph createSelf() {
+    try {
+      return getClass().newInstance();
+    } catch (Exception e) {
+      return new GraphImpl();
     }
   }
 

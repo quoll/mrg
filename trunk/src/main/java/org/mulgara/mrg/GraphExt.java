@@ -17,6 +17,7 @@ package org.mulgara.mrg;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -616,6 +617,634 @@ public interface GraphExt {
    * @return The subjects that have the value for the property.
    */
   public List<SubjectNode> getSubjects(String property, String value)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triple to match.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Iterator<Triple> matchX(URI s, PredicateNode p, ObjectNode o);
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Iterator<Triple> matchX(SubjectNode s, URI p, ObjectNode o);
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triple to match.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Iterator<Triple> matchX(SubjectNode s, PredicateNode p, URI o);
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Iterator<Triple> matchX(URI s, URI p, ObjectNode o);
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triple to match.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Iterator<Triple> matchX(URI s, PredicateNode p, URI o);
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Iterator<Triple> matchX(SubjectNode s, URI p, URI o);
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Iterator<Triple> matchX(URI s, URI p, URI o);
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triple to match.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(String s, PredicateNode p, ObjectNode o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(SubjectNode s, String p, ObjectNode o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triple to match.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Iterator<Triple> matchX(SubjectNode s, PredicateNode p, String o);
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(String s, String p, ObjectNode o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triple to match.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(String s, PredicateNode p, String o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(SubjectNode s, String p, String o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(String s, String p, String o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(String s, URI p, ObjectNode o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triple to match.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(String s, PredicateNode p, URI o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(String s, URI p, URI o) throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(URI s, String p, ObjectNode o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(SubjectNode s, String p, URI o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(URI s, String p, URI o) throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triple to match.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Iterator<Triple> matchX(URI s, PredicateNode p, String o);
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Iterator<Triple> matchX(SubjectNode s, URI p, String o);
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Iterator<Triple> matchX(URI s, URI p, String o);
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(String s, String p, URI o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(String s, URI p, String o)
+      throws URISyntaxException;
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Iterator<Triple> matchX(URI s, String p, String o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triple to match.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Graph matchSubgraphX(URI s, PredicateNode p, ObjectNode o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Graph matchSubgraphX(SubjectNode s, URI p, ObjectNode o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triple to match.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Graph matchSubgraphX(SubjectNode s, PredicateNode p, URI o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Graph matchSubgraphX(URI s, URI p, ObjectNode o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triple to match.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Graph matchSubgraphX(URI s, PredicateNode p, URI o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Graph matchSubgraphX(SubjectNode s, URI p, URI o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Graph matchSubgraphX(URI s, URI p, URI o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triple to match.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(String s, PredicateNode p, ObjectNode o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(SubjectNode s, String p, ObjectNode o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triple to match.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Graph matchSubgraphX(SubjectNode s, PredicateNode p, String o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(String s, String p, ObjectNode o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triple to match.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(String s, PredicateNode p, String o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(SubjectNode s, String p, String o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(String s, String p, String o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(String s, URI p, ObjectNode o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triple to match.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(String s, PredicateNode p, URI o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(String s, URI p, URI o) throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triple to match.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(URI s, String p, ObjectNode o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(SubjectNode s, String p, URI o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(URI s, String p, URI o) throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triple to match.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Graph matchSubgraphX(URI s, PredicateNode p, String o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triple to match.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Graph matchSubgraphX(SubjectNode s, URI p, String o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   */
+  public Graph matchSubgraphX(URI s, URI p, String o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The object of the triples to match, as a URI.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(String s, String p, URI o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a String.
+   * @param p The predicate of the triples to match, as a URI.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(String s, URI p, String o)
+      throws URISyntaxException;
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples.
+   * Use <code>null</code> cast to the appropriate type for wildcards, to avoid ambiguity on the parameters.
+   * @param s The subject of the triples to match, as a URI.
+   * @param p The predicate of the triples to match, as a String.
+   * @param o The literal object of the triples to match, as a String.
+   * @return <code>true</code> only if the triple exists in the graph.
+   * @throws URISyntaxException if a string could not be converted to a Uri.
+   */
+  public Graph matchSubgraphX(URI s, String p, String o)
       throws URISyntaxException;
 
 }
