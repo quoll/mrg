@@ -4,7 +4,7 @@
   <groupId>org.mulgara.mrg</groupId>
   <artifactId>mrg</artifactId>
   <packaging>jar</packaging>
-  <version>0.6</version>
+  <version>0.7</version>
   <name>mrg</name>
   <url>http://mrg.googlecode.com/</url>
   <description>Mulgara RDF Graph: An RDF Graph API for Java</description>
