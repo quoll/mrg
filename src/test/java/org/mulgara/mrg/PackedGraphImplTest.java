@@ -48,6 +48,8 @@ public class PackedGraphImplTest extends GraphTest {
     tests.addTest(new PackedGraphImplTest("testValue"));
     tests.addTest(new PackedGraphImplTest("testList"));
     tests.addTest(new PackedGraphImplTest("testSubject"));
+    tests.addTest(new PackedGraphImplTest("testMerge"));
+    tests.addTest(new PackedGraphImplTest("testUnion"));
     return tests;
   }
 
