@@ -50,6 +50,7 @@ public abstract class GraphTest extends TestCase {
   Uri first = RDF.FIRST;
   Uri rest = RDF.REST;
   Uri nil = RDF.NIL;
+  Bnode blank1 = new Bnode();
 
   /**
    * Create the test case
@@ -154,6 +155,43 @@ public abstract class GraphTest extends TestCase {
     assertTrue(subjects.isEmpty());
   }
 
+  public void testMerge() throws Exception {
+    AppendableGraph g1 = (AppendableGraph)getGraph(getSimple1());
+    AppendableGraph g2 = (AppendableGraph)getGraph(getSimple2());
+
+    g1.mergeInto(g2);
+    assertEquals(4, g1.getTriples().size());
+    Bnode b1 = (Bnode)g1.getValue(fred, knows);
+    Bnode b2 = (Bnode)g1.getValue(barney, knows);
+    assertNotSame(b1, b2);
+
+    g2.mergeInto(g2);
+    assertEquals(3, g2.getTriples().size());
+    List<ObjectNode> n = g2.getValues(barney, knows);
+    assertEquals(2, n.size());
+    assertNotSame(n.get(0), n.get(1));
+    assertTrue(n.get(0) instanceof Bnode);
+    assertTrue(n.get(1) instanceof Bnode);
+  }
+
+  public void testUnion() throws Exception {
+    AppendableGraph g1 = (AppendableGraph)getGraph(getSimple1());
+    AppendableGraph g2 = (AppendableGraph)getGraph(getSimple2());
+
+    g1.unionInto(g2);
+    assertEquals(4, g1.getTriples().size());
+    Bnode b1 = (Bnode)g1.getValue(fred, knows);
+    Bnode b2 = (Bnode)g1.getValue(barney, knows);
+    assertEquals(blank1, b1);
+    assertEquals(blank1, b2);
+
+    g2.unionInto(g2);
+    assertEquals(2, g2.getTriples().size());
+    List<ObjectNode> n = g2.getValues(barney, knows);
+    assertEquals(1, n.size());
+    assertEquals(n.get(0), blank1);
+  }
+
   protected abstract Graph getGraph(Collection<Triple> triples);
 
 
@@ -179,6 +217,20 @@ public abstract class GraphTest extends TestCase {
     triples.add(new Triple(_1, rest, _2));
     triples.add(new Triple(_2, first, betty));
     triples.add(new Triple(_2, rest, nil));
+    return triples;
+  }
+
+  final List<Triple> getSimple1() {
+    List<Triple> triples = new ArrayList<Triple>();
+    triples.add(new Triple(fred, type, person));
+    triples.add(new Triple(fred, knows, blank1));
+    return triples;
+  }
+
+  final List<Triple> getSimple2() {
+    List<Triple> triples = new ArrayList<Triple>();
+    triples.add(new Triple(barney, type, person));
+    triples.add(new Triple(barney, knows, blank1));
     return triples;
   }
 }
