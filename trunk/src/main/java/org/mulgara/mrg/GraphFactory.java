@@ -26,6 +26,6 @@ public interface GraphFactory {
    * Create a new appendable graph.
    * @return a new empty graph.
    */
-  public AppendableGraph createGraph();
+  public WritableGraph createGraph();
 
 }
