@@ -20,14 +20,55 @@ import org.mulgara.mrg.Uri;
 
 /**
  * A class for holding the Dublin Core vocabulary.
- * TODO: incomplete
  */
 public class DC {
 
   /** The URI of the DC name space. */
   public static final Uri BASE_URI = Uri.create(org.mulgara.mrg.vocab.uri.DC.BASE);
 
-  /** The creator relationship. */
+  /** A point or period of time associated with an event in the lifecycle of the resource. */
+  public static final Uri DATE = new Uri(org.mulgara.mrg.vocab.uri.DC.DATE);
+
+  /** The spatial or temporal topic of the resource, the spatial applicability of the resource, or the jurisdiction under which the resource is relevant. */
+  public static final Uri COVERAGE = new Uri(org.mulgara.mrg.vocab.uri.DC.COVERAGE);
+
+  /** The nature or genre of the resource. */
+  public static final Uri TYPE = new Uri(org.mulgara.mrg.vocab.uri.DC.TYPE);
+
+  /** A name given to the resource. */
+  public static final Uri TITLE = new Uri(org.mulgara.mrg.vocab.uri.DC.TITLE);
+
+  /** An entity primarily responsible for making the resource. */
   public static final Uri CREATOR = new Uri(org.mulgara.mrg.vocab.uri.DC.CREATOR);
+
+  /** The file format, physical medium, or dimensions of the resource. */
+  public static final Uri FORMAT = new Uri(org.mulgara.mrg.vocab.uri.DC.FORMAT);
+
+  /** Information about rights held in and over the resource. */
+  public static final Uri RIGHTS = new Uri(org.mulgara.mrg.vocab.uri.DC.RIGHTS);
+
+  /** A related resource from which the described resource is derived. */
+  public static final Uri SOURCE = new Uri(org.mulgara.mrg.vocab.uri.DC.SOURCE);
+
+  /** A related resource. */
+  public static final Uri RELATION = new Uri(org.mulgara.mrg.vocab.uri.DC.RELATION);
+
+  /** An entity responsible for making the resource available. */
+  public static final Uri PUBLISHER = new Uri(org.mulgara.mrg.vocab.uri.DC.PUBLISHER);
+
+  /** An unambiguous reference to the resource within a given context. */
+  public static final Uri IDENTIFIER = new Uri(org.mulgara.mrg.vocab.uri.DC.IDENTIFIER);
+
+  /** An account of the resource. */
+  public static final Uri DESCRIPTION = new Uri(org.mulgara.mrg.vocab.uri.DC.DESCRIPTION);
+
+  /** A language of the resource. */
+  public static final Uri LANGUAGE = new Uri(org.mulgara.mrg.vocab.uri.DC.LANGUAGE);
+
+  /** An entity responsible for making contributions to the resource. */
+  public static final Uri CONTRIBUTOR = new Uri(org.mulgara.mrg.vocab.uri.DC.CONTRIBUTOR);
+
+  /** The topic of the resource. */
+  public static final Uri SUBJECT = new Uri(org.mulgara.mrg.vocab.uri.DC.SUBJECT);
 
 }
