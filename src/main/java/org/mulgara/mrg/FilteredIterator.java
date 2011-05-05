@@ -31,7 +31,7 @@ class FilteredIterator implements Iterator<Triple> {
   /** The predicate of the pattern to filter on. */
   private PredicateNode predicate;
 
-  /** The object of hte pattern to filter on. */
+  /** The object of the pattern to filter on. */
   private ObjectNode object;
 
   /** The initial iterator to filter. */
