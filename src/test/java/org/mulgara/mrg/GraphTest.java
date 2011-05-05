@@ -192,8 +192,57 @@ public abstract class GraphTest extends TestCase {
     assertEquals(n.get(0), blank1);
   }
 
+  /**
+   * Test matching
+   */
+  public void testMatch() throws Exception {
+    Graph graph = getGraph(getTriples());
+    Iterator<Triple> i = graph.match(null, hasName, null);
+    Set<Uri> names = getNames();
+    assertTrue(names.contains(i.next()._1));
+    assertTrue(names.contains(i.next()._1));
+    assertTrue(names.contains(i.next()._1));
+    assertTrue(names.contains(i.next()._1));
+    assertFalse(i.hasNext());
+    i = graph.matchX((SubjectNode)null, hasName, "Fred");
+    assertEquals(new Triple(fred, hasName, "Fred"), i.next());
+    assertFalse(i.hasNext());
+    i = graph.matchX(fred, hasName, "Fred");
+    assertEquals(new Triple(fred, hasName, "Fred"), i.next());
+    assertFalse(i.hasNext());
+  }
+
+  /**
+   * Test matching on subgraphs
+   */
+  public void testSubgraph() throws Exception {
+    Graph graph = getGraph(getTriples());
+    Graph g = graph.matchSubgraph((SubjectNode)null, hasName, (SubjectNode)null);
+    Iterator<Triple> i = g.getTriples().iterator();
+    Set<Uri> names = getNames();
+    assertTrue(names.contains(i.next()._1));
+    assertTrue(names.contains(i.next()._1));
+    assertTrue(names.contains(i.next()._1));
+    assertTrue(names.contains(i.next()._1));
+    assertFalse(i.hasNext());
+    i = graph.matchSubgraphX((SubjectNode)null, hasName, "Fred").getTriples().iterator();
+    assertEquals(new Triple(fred, hasName, new Literal("Fred")), i.next());
+    assertFalse(i.hasNext());
+    i = graph.matchSubgraphX(fred, hasName, "Fred").getTriples().iterator();
+    assertEquals(new Triple(fred, hasName, new Literal("Fred")), i.next());
+    assertFalse(i.hasNext());
+  }
+
   protected abstract Graph getGraph(Collection<Triple> triples);
 
+  final Set<Uri> getNames() {
+    Set<Uri> names = new HashSet<Uri>();
+    names.add(fred);
+    names.add(barney);
+    names.add(wilma);
+    names.add(betty);
+    return names;
+  }
 
   final List<Triple> getTriples() {
     Bnode _1 = new Bnode();

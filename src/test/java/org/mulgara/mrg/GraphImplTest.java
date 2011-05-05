@@ -49,6 +49,8 @@ public class GraphImplTest extends GraphTest {
     tests.addTest(new GraphImplTest("testSubject"));
     tests.addTest(new GraphImplTest("testMerge"));
     tests.addTest(new GraphImplTest("testUnion"));
+    tests.addTest(new GraphImplTest("testMatch"));
+    tests.addTest(new GraphImplTest("testSubgraph"));
     return tests;
   }
 
