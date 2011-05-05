@@ -18,6 +18,7 @@ package org.mulgara.mrg;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -126,5 +127,101 @@ public abstract class AbstractGraphExt implements Graph, GraphExt {
 
   public boolean doesResourceExist(URI r) { return doesResourceExist(new Uri(r)); }
   public boolean doesResourceExist(String r) { return doesResourceExist(new Literal(r)); }
+
+  public Iterator<Triple> matchX(URI s, PredicateNode p, ObjectNode o) { return match(newUri(s), p, o); }
+  public Iterator<Triple> matchX(SubjectNode s, URI p, ObjectNode o) { return match(s, newUri(p), o); }
+  public Iterator<Triple> matchX(SubjectNode s, PredicateNode p, URI o) { return match(s, p, newUri(o)); }
+  public Iterator<Triple> matchX(URI s, URI p, ObjectNode o) { return match(newUri(s), newUri(p), o); }
+  public Iterator<Triple> matchX(URI s, PredicateNode p, URI o) { return match(newUri(s), p, newUri(o)); }
+  public Iterator<Triple> matchX(SubjectNode s, URI p, URI o) { return match(s, newUri(p), newUri(o)); }
+  public Iterator<Triple> matchX(URI s, URI p, URI o) { return match(newUri(s), newUri(p), newUri(o)); }
+  public Iterator<Triple> matchX(String s, PredicateNode p, ObjectNode o)
+      throws URISyntaxException { return match(newUri(s), p, o); }
+  public Iterator<Triple> matchX(SubjectNode s, String p, ObjectNode o)
+      throws URISyntaxException { return match(s, newUri(p), o); }
+  public Iterator<Triple> matchX(SubjectNode s, PredicateNode p, String o) { return match(s, p, newLiteral(o)); }
+  public Iterator<Triple> matchX(String s, String p, ObjectNode o)
+      throws URISyntaxException { return match(newUri(s), newUri(p), o); }
+  public Iterator<Triple> matchX(String s, PredicateNode p, String o)
+      throws URISyntaxException { return match(newUri(s), p, newLiteral(o)); }
+  public Iterator<Triple> matchX(SubjectNode s, String p, String o)
+      throws URISyntaxException { return match(s, newUri(p), newLiteral(o)); }
+  public Iterator<Triple> matchX(String s, String p, String o)
+      throws URISyntaxException { return match(newUri(s), newUri(p), newLiteral(o)); }
+  public Iterator<Triple> matchX(String s, URI p, ObjectNode o)
+      throws URISyntaxException { return match(newUri(s), newUri(p), o); }
+  public Iterator<Triple> matchX(String s, PredicateNode p, URI o)
+      throws URISyntaxException { return match(newUri(s), p, newUri(o)); }
+  public Iterator<Triple> matchX(String s, URI p, URI o)
+      throws URISyntaxException { return match(newUri(s), newUri(p), newUri(o)); }
+  public Iterator<Triple> matchX(URI s, String p, ObjectNode o)
+      throws URISyntaxException { return match(newUri(s), newUri(p), o); }
+  public Iterator<Triple> matchX(SubjectNode s, String p, URI o)
+      throws URISyntaxException { return match(s, newUri(p), newUri(o)); }
+  public Iterator<Triple> matchX(URI s, String p, URI o)
+      throws URISyntaxException { return match(newUri(s), newUri(p), newUri(o)); }
+  public Iterator<Triple> matchX(URI s, PredicateNode p, String o) { return match(newUri(s), p, newLiteral(o)); }
+  public Iterator<Triple> matchX(SubjectNode s, URI p, String o) { return match(s, newUri(p), newLiteral(o)); }
+  public Iterator<Triple> matchX(URI s, URI p, String o) { return match(newUri(s), newUri(p), newLiteral(o)); }
+  public Iterator<Triple> matchX(String s, String p, URI o)
+      throws URISyntaxException { return match(newUri(s), newUri(p), newUri(o)); }
+  public Iterator<Triple> matchX(String s, URI p, String o)
+      throws URISyntaxException { return match(newUri(s), newUri(p), newLiteral(o)); }
+  public Iterator<Triple> matchX(URI s, String p, String o)
+      throws URISyntaxException { return match(newUri(s), newUri(p), newLiteral(o)); }
+
+  public Graph matchSubgraphX(URI s, PredicateNode p, ObjectNode o) { return matchSubgraph(newUri(s), p, o); }
+  public Graph matchSubgraphX(SubjectNode s, URI p, ObjectNode o) { return matchSubgraph(s, newUri(p), o); }
+  public Graph matchSubgraphX(SubjectNode s, PredicateNode p, URI o) { return matchSubgraph(s, p, newUri(o)); }
+  public Graph matchSubgraphX(URI s, URI p, ObjectNode o) { return matchSubgraph(newUri(s), newUri(p), o); }
+  public Graph matchSubgraphX(URI s, PredicateNode p, URI o) { return matchSubgraph(newUri(s), p, newUri(o)); }
+  public Graph matchSubgraphX(SubjectNode s, URI p, URI o) { return matchSubgraph(s, newUri(p), newUri(o)); }
+  public Graph matchSubgraphX(URI s, URI p, URI o) { return matchSubgraph(newUri(s), newUri(p), newUri(o)); }
+  public Graph matchSubgraphX(String s, PredicateNode p, ObjectNode o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), p, o); }
+  public Graph matchSubgraphX(SubjectNode s, String p, ObjectNode o)
+      throws URISyntaxException { return matchSubgraph(s, newUri(p), o); }
+  public Graph matchSubgraphX(SubjectNode s, PredicateNode p, String o) { return matchSubgraph(s, p, newLiteral(o)); }
+  public Graph matchSubgraphX(String s, String p, ObjectNode o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), newUri(p), o); }
+  public Graph matchSubgraphX(String s, PredicateNode p, String o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), p, newLiteral(o)); }
+  public Graph matchSubgraphX(SubjectNode s, String p, String o)
+      throws URISyntaxException { return matchSubgraph(s, newUri(p), newLiteral(o)); }
+  public Graph matchSubgraphX(String s, String p, String o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), newUri(p), newLiteral(o)); }
+  public Graph matchSubgraphX(String s, URI p, ObjectNode o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), newUri(p), o); }
+  public Graph matchSubgraphX(String s, PredicateNode p, URI o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), p, newUri(o)); }
+  public Graph matchSubgraphX(String s, URI p, URI o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), newUri(p), newUri(o)); }
+  public Graph matchSubgraphX(URI s, String p, ObjectNode o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), newUri(p), o); }
+  public Graph matchSubgraphX(SubjectNode s, String p, URI o)
+      throws URISyntaxException { return matchSubgraph(s, newUri(p), newUri(o)); }
+  public Graph matchSubgraphX(URI s, String p, URI o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), newUri(p), newUri(o)); }
+  public Graph matchSubgraphX(URI s, PredicateNode p, String o) { return matchSubgraph(newUri(s), p, newLiteral(o)); }
+  public Graph matchSubgraphX(SubjectNode s, URI p, String o) { return matchSubgraph(s, newUri(p), newLiteral(o)); }
+  public Graph matchSubgraphX(URI s, URI p, String o) { return matchSubgraph(newUri(s), newUri(p), newLiteral(o)); }
+  public Graph matchSubgraphX(String s, String p, URI o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), newUri(p), newUri(o)); }
+  public Graph matchSubgraphX(String s, URI p, String o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), newUri(p), newLiteral(o)); }
+  public Graph matchSubgraphX(URI s, String p, String o)
+      throws URISyntaxException { return matchSubgraph(newUri(s), newUri(p), newLiteral(o)); }
+
+  private static final Uri newUri(String s) throws URISyntaxException {
+    return s == null ? null : new Uri(s);
+  }
+
+  private static final Uri newUri(URI u) {
+    return u == null ? null : new Uri(u);
+  }
+
+  private static final Literal newLiteral(String s) {
+    return s == null ? null : new Literal(s);
+  }
 
 }

@@ -17,6 +17,7 @@
 package org.mulgara.mrg;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -154,5 +155,27 @@ public interface Graph extends GraphExt {
    * @return <code>true</code> if there are no entries.
    */
   public boolean isEmpty();
+
+  /**
+   * Find all triples that match a given pattern. The resulting iterator may be live, and can
+   * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
+   * If this is a possibility, then use {@link #matchSubgraph(SubjectNode, PredicateNode, ObjectNode)} instead.
+   * @param s The subject of the triples to match. If <code>null</code> then all subjects match.
+   * @param p The predicate of the triple to add. If <code>null</code> then all predicates match.
+   * @param o The object of the triple to add. If <code>null</code> then all objects match.
+   * @return An Iterator on the matching triples.
+   */
+  public Iterator<Triple> match(SubjectNode s, PredicateNode p, ObjectNode o);
+
+  /**
+   * Returns a subgraph of this graph that only contains the triples that match a given pattern.
+   * This method copies all of the required triples. To avoid the overhead of this operation, use
+   * {@link #match(SubjectNode, PredicateNode, ObjectNode)} instead.
+   * @param s The subject of the triples to match. If <code>null</code> then all subjects match.
+   * @param p The predicate of the triple to add. If <code>null</code> then all predicates match.
+   * @param o The object of the triple to add. If <code>null</code> then all objects match.
+   * @return A Graph containing only the matching triples.
+   */
+  public Graph matchSubgraph(SubjectNode s, PredicateNode p, ObjectNode o);
 
 }
