@@ -17,6 +17,8 @@
 package org.mulgara.mrg.parser;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -35,7 +37,6 @@ import org.mulgara.jena.rdf.arp.AResource;
 import org.mulgara.jena.rdf.arp.StatementHandler;
 import org.mulgara.mrg.Bnode;
 import org.mulgara.mrg.GraphFactory;
-import org.mulgara.mrg.GraphImpl;
 import org.mulgara.mrg.GraphImplFactory;
 import org.mulgara.mrg.Literal;
 import org.mulgara.mrg.Node;
@@ -57,7 +58,7 @@ public class XMLGraphParser implements StatementHandler, ErrorHandler, GraphPars
   private static final Logger logger = Logger.getLogger(XMLGraphParser.class.getName());
 
   /** The graph that is parsed from the input data. */
-  private WritableGraph graph = new GraphImpl();
+  private final WritableGraph graph;
 
   /** The number of triples parsed. */
   private long triples = 0;
@@ -79,6 +80,14 @@ public class XMLGraphParser implements StatementHandler, ErrorHandler, GraphPars
   }
 
   /**
+   * Create a graph from a File.
+   * @param is The File with the graph data.
+   */
+  public XMLGraphParser(File f) throws ParseException, IOException {
+    this(f, new GraphImplFactory());
+  }
+
+  /**
    * Create a graph from a string and a graph factory.
    * @param s The string containing the RDF/XML.
    * @param graphFactory A mechanism for creating a graph to populate.
@@ -88,11 +97,21 @@ public class XMLGraphParser implements StatementHandler, ErrorHandler, GraphPars
   }
 
   /**
+   * Create a graph from a file and a graph factory.
+   * @param s The file containing the RDF/XML.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public XMLGraphParser(File f, GraphFactory graphFactory) throws ParseException, IOException {
+    this(new FileInputStream(f), graphFactory);
+  }
+
+  /**
    * Create a graph from an InputStream and a graph factory.
    * @param is The input stream with the graph data.
    * @param graphFactory A mechanism for creating a graph to populate.
    */
   public XMLGraphParser(InputStream is, GraphFactory graphFactory) throws ParseException, IOException {
+    graph = graphFactory.createGraph();
     ARP arp = new ARP();
 
     ARPOptions options = arp.getOptions();
