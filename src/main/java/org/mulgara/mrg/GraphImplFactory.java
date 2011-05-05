@@ -25,7 +25,7 @@ public class GraphImplFactory implements GraphFactory {
    * Creates a new GraphImpl.
    */
   @Override
-  public AppendableGraph createGraph() {
+  public WritableGraph createGraph() {
     return new GraphImpl();
   }
 
