@@ -22,6 +22,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -85,6 +86,50 @@ public abstract class AbstractGraph extends AbstractGraphExt implements Graph, W
    */
   public boolean insert(Triple triple) {
     return spo.put(triple.getSubject(), triple.getPredicate(), triple.getObject());
+  }
+
+  /**
+   * Adds the contents of another graph to this one, creating new blank nodes as required
+   * (not re-using the blank nodes from the original graph).
+   * @param g The graph to merge into this one.
+   * @return The current graph, after modification.
+   */
+  public Graph mergeInto(Graph g) {
+    Map<Node,Bnode> bnodeMap = new HashMap<Node,Bnode>();
+    for (Triple t: g.getTriples()) {
+      SubjectNode s = t.getSubject();
+      PredicateNode p = t.getPredicate();
+      ObjectNode o = t.getObject();
+      if (s.getTypeId() == Bnode.TYPE_ID) s = mergeBnode(bnodeMap, s);
+      if (o.getTypeId() == Bnode.TYPE_ID) o = mergeBnode(bnodeMap, o);
+      insert(s, p, o);
+    }
+    return this;
+  }
+
+  /**
+   * Helper function to map bnodes into a new, unique bnode.
+   * @param map A map containing original bnodes mapped to their new equivalent.
+   * @param bn The bnode to look up.
+   * @return A new bnode that is uniquely associated with bn.
+   */
+  private static final Bnode mergeBnode(Map<Node,Bnode> map, Node bn) {
+    Bnode newNode = map.get(bn);
+    if (newNode == null) {
+      newNode = new Bnode();
+      map.put(bn, newNode);
+    }
+    return newNode;
+  }
+
+  /**
+   * Adds the contents of another graph to this one, re-using all the blank nodes from the new graph.
+   * @param g The graph to merge into this one.
+   * @return The current graph, after modification.
+   */
+  public Graph unionInto(Graph g) {
+    for (Triple t: g.getTriples()) insert(t);
+    return this;
   }
 
   /**
