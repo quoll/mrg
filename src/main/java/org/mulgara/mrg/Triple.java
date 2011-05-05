@@ -16,6 +16,9 @@
 
 package org.mulgara.mrg;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.mulgara.util.Trio;
 
 /**
@@ -72,6 +75,273 @@ public class Triple extends Trio<SubjectNode,PredicateNode,ObjectNode> {
   public Triple(SubjectNode s, PredicateNode p, String o) {
     super(s, p, new Literal(o));
   }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   */
+  public Triple(URI s, PredicateNode p, ObjectNode o) {
+    super(new Uri(s), p, o);
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   */
+  public Triple(SubjectNode s, URI p, ObjectNode o) {
+    super(s, new Uri(p), o);
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   */
+  public Triple(SubjectNode s, PredicateNode p, URI o) {
+    super(s, p, new Uri(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   */
+  public Triple(URI s, URI p, ObjectNode o) {
+    super(new Uri(s), new Uri(p), o);
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   */
+  public Triple(SubjectNode s, URI p, URI o) {
+    super(s, new Uri(p), new Uri(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   */
+  public Triple(URI s, PredicateNode p, URI o) {
+    super(new Uri(s), p, new Uri(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   */
+  public Triple(URI s, URI p, URI o) {
+    super(new Uri(s), new Uri(p), new Uri(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(String s, PredicateNode p, ObjectNode o) throws URISyntaxException {
+    super(new Uri(s), p, o);
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(SubjectNode s, String p, ObjectNode o) throws URISyntaxException {
+    super(s, new Uri(p), o);
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(String s, String p, ObjectNode o) throws URISyntaxException {
+    super(new Uri(s), new Uri(p), o);
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(String s, URI p, ObjectNode o) throws URISyntaxException {
+    super(new Uri(s), new Uri(p), o);
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(URI s, String p, ObjectNode o) throws URISyntaxException {
+    super(new Uri(s), new Uri(p), o);
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(SubjectNode s, String p, String o) throws URISyntaxException {
+    super(s, new Uri(p), new Literal(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   */
+  public Triple(SubjectNode s, URI p, String o) {
+    super(s, new Uri(p), new Literal(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(SubjectNode s, String p, URI o) throws URISyntaxException {
+    super(s, new Uri(p), new Uri(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(String s, PredicateNode p, String o) throws URISyntaxException {
+    super(new Uri(s), p, new Literal(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   */
+  public Triple(URI s, PredicateNode p, String o) {
+    super(new Uri(s), p, new Literal(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(String s, PredicateNode p, URI o) throws URISyntaxException {
+    super(new Uri(s), p, new Uri(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(String s, String p, String o) throws URISyntaxException {
+    super(new Uri(s), new Uri(p), new Literal(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(URI s, String p, String o) throws URISyntaxException {
+    super(new Uri(s), new Uri(p), new Literal(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(URI s, URI p, String o) throws URISyntaxException {
+    super(new Uri(s), new Uri(p), new Literal(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(URI s, String p, URI o) throws URISyntaxException {
+    super(new Uri(s), new Uri(p), new Uri(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(String s, URI p, String o) throws URISyntaxException {
+    super(new Uri(s), new Uri(p), new Literal(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(String s, URI p, URI o) throws URISyntaxException {
+    super(new Uri(s), new Uri(p), new Uri(o));
+  }
+
+  /**
+   * Create a new triple. Convenience constructor with automatic type conversion.
+   * @param s The subject.
+   * @param p The predicate.
+   * @param o The object.
+   * @throws URISyntaxException A string could not be converted to a Uri.
+   */
+  public Triple(String s, String p, URI o) throws URISyntaxException {
+    super(new Uri(s), new Uri(p), new Uri(o));
+  }
+
 
   /**
    * Gets the subject
