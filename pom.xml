@@ -8,6 +8,13 @@
   <name>mrg</name>
   <url>http://mrg.googlecode.com/</url>
   <description>Mulgara RDF Graph: An RDF Graph API for Java</description>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <properties>
     <maven.compiler.source>1.5</maven.compiler.source>
