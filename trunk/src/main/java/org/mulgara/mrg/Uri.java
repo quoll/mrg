@@ -30,6 +30,9 @@ public class Uri implements SubjectNode, PredicateNode, ObjectNode {
   /** The type identifier for Uri */
   public static final int TYPE_ID = 0;
 
+  /** A constant value used as a marker for wildcards. */
+  static final Uri BLANK = new Uri((URI)null);
+
   /** The wrapped URI. */
   private final URI uri;
 

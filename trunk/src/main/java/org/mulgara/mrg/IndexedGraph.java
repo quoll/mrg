@@ -100,12 +100,16 @@ public class IndexedGraph extends AbstractGraph {
 
   /**
    * Find all triples that match a given pattern.
-   * @param s The subject of the triples to match. If <code>null</code> that all subjects match.
-   * @param p The predicate of the triple to add. If <code>null</code> that all predicates match.
-   * @param o The object of the triple to add. If <code>null</code> that all objects match.
+   * @param s The subject of the triples to match. If <code>null</code> or {@link Graph#X} then all subjects match.
+   * @param p The predicate of the triple to add. If <code>null</code> or {@link Graph#X} then all predicates match.
+   * @param o The object of the triple to add. If <code>null</code> or {@link Graph#X} then all objects match.
    * @return A Collection of the matching triples.
    */
   public Iterator<Triple> match(SubjectNode s, PredicateNode p, ObjectNode o) {
+    if (s == Graph.X) s = null;
+    if (p == Graph.X) p = null;
+    if (o == Graph.X) o = null;
+
     if (s == null && p == null && o == null) return getTriples().iterator();
     if (s != null && p != null && o != null) {
       if (spo.isDefinedAt(s)) {

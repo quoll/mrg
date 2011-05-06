@@ -28,6 +28,9 @@ import java.net.URI;
  */
 public interface Graph extends GraphExt {
 
+  /** A wildcard for use when matching triples. */
+  public static final Uri X = Uri.BLANK;
+
   /**
    * Tests if a triple has been asserted. Be careful of blank nodes, as
    * they will only match if they are exactly alike.
@@ -160,9 +163,9 @@ public interface Graph extends GraphExt {
    * Find all triples that match a given pattern. The resulting iterator may be live, and can
    * lead to a {@link java.util.ConcurrentModificationException} if the graph is modified.
    * If this is a possibility, then use {@link #matchSubgraph(SubjectNode, PredicateNode, ObjectNode)} instead.
-   * @param s The subject of the triples to match. If <code>null</code> then all subjects match.
-   * @param p The predicate of the triple to add. If <code>null</code> then all predicates match.
-   * @param o The object of the triple to add. If <code>null</code> then all objects match.
+   * @param s The subject of the triples to match. If <code>null</code> or {@link #X} then all subjects match.
+   * @param p The predicate of the triple to add. If <code>null</code> or {@link #X} then all predicates match.
+   * @param o The object of the triple to add. If <code>null</code> or {@link #X} then all objects match.
    * @return An Iterator on the matching triples.
    */
   public Iterator<Triple> match(SubjectNode s, PredicateNode p, ObjectNode o);
@@ -171,9 +174,9 @@ public interface Graph extends GraphExt {
    * Returns a subgraph of this graph that only contains the triples that match a given pattern.
    * This method copies all of the required triples. To avoid the overhead of this operation, use
    * {@link #match(SubjectNode, PredicateNode, ObjectNode)} instead.
-   * @param s The subject of the triples to match. If <code>null</code> then all subjects match.
-   * @param p The predicate of the triple to add. If <code>null</code> then all predicates match.
-   * @param o The object of the triple to add. If <code>null</code> then all objects match.
+   * @param s The subject of the triples to match. If <code>null</code> or {@link #X} then all subjects match.
+   * @param p The predicate of the triple to add. If <code>null</code> or {@link #X} then all predicates match.
+   * @param o The object of the triple to add. If <code>null</code> or {@link #X} then all objects match.
    * @return A Graph containing only the matching triples.
    */
   public Graph matchSubgraph(SubjectNode s, PredicateNode p, ObjectNode o);
