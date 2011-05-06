@@ -7,7 +7,7 @@ package org.mulgara.jena.rdf.arp;
 
 /**
  * This exception should only be seen in user code when using 
- * {@link SAX2RDF} or {@link SAX2Model}.
+ * {@link SAX2RDF} or SAX2Model.
  * This is thrown after.error errors,
  * most importantly a {@link ARPErrorNumbers#ERR_SAX_FATAL_ERROR}.
  * User code in an error handler may throw a different exception.

@@ -81,7 +81,7 @@ public class XMLGraphParser implements StatementHandler, ErrorHandler, GraphPars
 
   /**
    * Create a graph from a File.
-   * @param is The File with the graph data.
+   * @param f The File with the graph data.
    */
   public XMLGraphParser(File f) throws ParseException, IOException {
     this(f, new GraphImplFactory());
@@ -98,7 +98,7 @@ public class XMLGraphParser implements StatementHandler, ErrorHandler, GraphPars
 
   /**
    * Create a graph from a file and a graph factory.
-   * @param s The file containing the RDF/XML.
+   * @param f The file containing the RDF/XML.
    * @param graphFactory A mechanism for creating a graph to populate.
    */
   public XMLGraphParser(File f, GraphFactory graphFactory) throws ParseException, IOException {

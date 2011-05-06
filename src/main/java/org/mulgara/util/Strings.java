@@ -196,10 +196,9 @@ public class Strings {
   }
 
   /**
-   * When {@link #setPrettyPrint(boolean)} is set, returns a string containing a new line and an indentation.
-   * When pretty printing is off, then return an empty string.
+   * Returns a string containing an indentation.
    * @param indent The number of indentations to use.
-   * @return A String containing the appropriate indentation, or an empty string if not pretty printing.
+   * @return A String containing the appropriate indentation.
    */
   public static String indent(int indent) {
     if (indent < INDENT.length) return INDENT[indent];

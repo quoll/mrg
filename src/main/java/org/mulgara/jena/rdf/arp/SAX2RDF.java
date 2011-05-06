@@ -42,7 +42,7 @@ import org.mulgara.jena.rdf.arp.impl.XMLHandler;
  * Allows connecting an arbitrary source of SAX events with ARP.
  * </p>
  * <p>For use with a DOM tree,
- * either use {@link DOM2Model} or
+ * either use DOM2Model or
  * see <a href="http://javaalmanac.com/egs/javax.xml.transform.sax/Dom2Sax.html">
  * The Java Developer's Almanac</a> for a discussion of how to transform a DOM
  * into a source of SAX events.
@@ -58,9 +58,9 @@ import org.mulgara.jena.rdf.arp.impl.XMLHandler;
  * </p>
  * 
  * <p>
- * To build a Jena model it is better to use {@link SAX2Model}.
+ * To build a Jena model it is better to use SAX2Model.
  * The documentation here, covers usage both using the subclass
- * {@link SAX2Model}, and not.
+ * SAX2Model, and not.
  * </p>
  * <p>
  * This class does not support multithreaded SAX sources, nor IO interruption.
@@ -119,7 +119,7 @@ implements ARPConfig {
      *It can be called before the initial 
      *<code>startElement</code> event, or other events associated
      *with the elements being processed.
-     *When building a Jena Model, with {@link SAX2Model} it is not required to match this
+     *When building a Jena Model, with SAX2Model it is not required to match this
      *with corresponding <code>endPrefixMapping</code> events.
      *Other {@link NamespaceHandler}s may be fussier.
      *When building a Jena Model, the prefix bindings are
@@ -144,7 +144,7 @@ implements ARPConfig {
     }
 
     /**The handlers used for processing ARP events. 
-     * Do not use with a {@link SAX2Model}.
+     * Do not use with a SAX2Model.
 
 	 * @see org.mulgara.jena.rdf.arp.ARPConfig#getHandlers()
 	 */
@@ -153,7 +153,7 @@ implements ARPConfig {
 		return super.getHandlers();
 	}
     /**Copys handlers used for processing ARP events. 
-     * Do not use with a {@link SAX2Model}.
+     * Do not use with a SAX2Model.
 	
 	 * @see org.mulgara.jena.rdf.arp.ARPConfig#setHandlersWith(ARPHandlers)
 	 */
