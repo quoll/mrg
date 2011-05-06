@@ -3,7 +3,7 @@
   <groupId>org.mulgara</groupId>
   <artifactId>mrg</artifactId>
   <packaging>jar</packaging>
-  <version>0.7</version>
+  <version>0.8-SNAPSHOT</version>
   <name>mrg</name>
   <url>http://mrg.googlecode.com/</url>
   <description>Mulgara RDF Graph: An RDF Graph API for Java</description>
@@ -15,9 +15,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:svn:http://mrg.googlecode.com/svn/tags/mrg-0.7</connection>
-    <developerConnection>scm:svn:https://mrg.googlecode.com/svn/tags/mrg-0.7</developerConnection>
-    <url>http://mrg.googlecode.com/svn/tags/mrg-0.7</url>
+    <connection>scm:svn:http://mrg.googlecode.com/svn/trunk/</connection>
+    <developerConnection>scm:svn:https://mrg.googlecode.com/svn/trunk/</developerConnection>
+    <url>http://mrg.googlecode.com/svn/trunk/</url>
   </scm>
   <developers>
     <developer>
