@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.mulgara.mrg</groupId>
+  <groupId>org.mulgara</groupId>
   <artifactId>mrg</artifactId>
   <packaging>jar</packaging>
   <version>0.7</version>
@@ -15,6 +15,24 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <scm>
+    <connection>scm:svn:http://mrg.googlecode.com/svn/trunk/</connection>
+    <developerConnection>scm:svn:https://mrg.googlecode.com/svn/trunk/</developerConnection>
+    <url>http://mrg.googlecode.com/svn/trunk/</url>
+  </scm>
+  <developers>
+    <developer>
+      <id>quoll</id>
+      <name>Paul Gearon</name>
+      <email>gearon@computer.org</email>
+    </developer>
+  </developers>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
 
   <properties>
     <maven.compiler.source>1.5</maven.compiler.source>
@@ -46,4 +64,34 @@
       <version>1.6.2</version>
     </dependency>
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>release-sign-artifacts</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
 </project>
