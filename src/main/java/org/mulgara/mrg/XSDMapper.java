@@ -69,8 +69,8 @@ public class XSDMapper {
    * Sets the static locale for date parsing. This is used for the fallback parser
    * when dates have a non-canonical form.
    * @param style The formatting style for dates.
-   * @param Locale The locale to use for date parsing.
-   * @see {DateFormat#getDateInstance(int,Locale)} for details.
+   * @param aLocale The locale to use for date parsing.
+   * @see DateFormat#getDateInstance(int,Locale)
    */
   public static void setLocale(int style, Locale aLocale) {
     dateFormat = DateFormat.getDateInstance(style, aLocale);
@@ -81,8 +81,8 @@ public class XSDMapper {
    * when dates have a non-canonical form.
    * @param dateStyle The formatting style for dates.
    * @param timeStyle The formatting style for dates.
-   * @param Locale The locale to use for date parsing.
-   * @see {DateFormat#getDateTimeInstance(int,int,Locale)} for details.
+   * @param aLocale The locale to use for date parsing.
+   * @see DateFormat#getDateTimeInstance(int, int, Locale)
    */
   public static void setLocale(int dateStyle, int timeStyle, Locale aLocale) {
     dateFormat = DateFormat.getDateTimeInstance(dateStyle, timeStyle, aLocale);
