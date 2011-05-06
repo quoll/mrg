@@ -263,16 +263,6 @@ public class XMLWriter extends AbstractGraphWriter implements GraphWriter {
   }
 
   /**
-   * Overloads {@link #formatUri(Uri)} to avoid the need to cast.
-   * @param p The predicate node to print.
-   * @return The formatted Uri reference.
-   */
-  protected String formatUri(PredicateNode p) {
-    if (p.equals(RDF.TYPE)) return "a";
-    return formatUri((Uri)p);
-  }
-
-  /**
    * Tests a potential namespace to see if it is considered to be OK.
    * @param ns The namespace to test.
    * @return <code>true</code> iff the namespace can be used in this type of document.
