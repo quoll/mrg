@@ -136,7 +136,7 @@ public class IRIResolver {
 
 	/**
 	 * The base of this IRIResolver.
-	 * @return
+	 * @return The string representation of the base.
 	 */
 	public String getBaseIRI() {
 		return base.toString();
@@ -174,10 +174,9 @@ public class IRIResolver {
 	
 	private static boolean showExceptions = true;
 
-	/**
-	    To allow Eyeball to bypass IRI checking (because it's doing its own)
-	    @author kers
-	*/
+  /**
+	 *   To allow Eyeball to bypass IRI checking (because it's doing its own)
+   */
 	public static void suppressExceptions()
 	    { showExceptions = false; }
 	
@@ -185,7 +184,7 @@ public class IRIResolver {
 	 * Resolve the relative URI str against the current
 	 * working directory.
 	 * @param str
-	 * @return
+	 * @return The resolved URI as a string.
 	 */
 	public static String resolveGlobal(String str) {
 		return exceptions(cwd.resolve(str)).toString();

@@ -39,19 +39,19 @@ public class XSD {
   /** URI for the XML Schema <code>xsd:decimal</code> datatype. */
   public static final Uri DECIMAL = new Uri(org.mulgara.mrg.vocab.uri.XSD.DECIMAL);
 
-  /** URI for the XML Schema <code>integer</code> datatype. Subtype of {@link #Decimal}. */
+  /** URI for the XML Schema <code>integer</code> datatype. Subtype of {@link #DECIMAL}. */
   public static final Uri INTEGER = new Uri(org.mulgara.mrg.vocab.uri.XSD.INTEGER);
 
-  /** URI for the XML Schema <code>long</code> datatype. Subtype of {@link #Integer}. */
+  /** URI for the XML Schema <code>long</code> datatype. Subtype of {@link #INTEGER}. */
   public static final Uri LONG = new Uri(org.mulgara.mrg.vocab.uri.XSD.LONG);
 
-  /** URI for the XML Schema <code>int</code> datatype. Subtype of {@link #Long}. */
+  /** URI for the XML Schema <code>int</code> datatype. Subtype of {@link #LONG}. */
   public static final Uri INT = new Uri(org.mulgara.mrg.vocab.uri.XSD.INT);
 
-  /** URI for the XML Schema <code>short</code> datatype. Subtype of {@link #Int}. */
+  /** URI for the XML Schema <code>short</code> datatype. Subtype of {@link #INT}. */
   public static final Uri SHORT = new Uri(org.mulgara.mrg.vocab.uri.XSD.SHORT);
 
-  /** URI for the XML Schema <code>byte</code> datatype. Subtype of {@link #Short}. */
+  /** URI for the XML Schema <code>byte</code> datatype. Subtype of {@link #SHORT}. */
   public static final Uri BYTE = new Uri(org.mulgara.mrg.vocab.uri.XSD.BYTE);
 
 }

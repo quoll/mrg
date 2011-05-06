@@ -15,6 +15,8 @@ package org.mulgara.jena.n3;
 
 public class JenaURIException extends RuntimeException
 {
+    private static final long serialVersionUID = 1822853841182839414L;
+
     public JenaURIException(Exception e) { super(e) ; }
 	
     public JenaURIException(String msg) { super(msg) ; }

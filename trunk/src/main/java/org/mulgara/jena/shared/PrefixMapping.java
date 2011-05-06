@@ -159,6 +159,8 @@ public interface PrefixMapping
     */
     public static class IllegalPrefixException extends RuntimeException
         {
+        private static final long serialVersionUID = -1972728812266446113L;
+
         public IllegalPrefixException( String prefixName ) { super( prefixName ); }
         }
 
@@ -167,6 +169,8 @@ public interface PrefixMapping
     */
     public static class JenaLockedException extends RuntimeException
         {
+        private static final long serialVersionUID = 2519916038207785296L;
+
         public JenaLockedException( PrefixMapping pm ) { super( pm.toString() ); }
         }
 

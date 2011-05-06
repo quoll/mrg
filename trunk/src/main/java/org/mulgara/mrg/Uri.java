@@ -35,7 +35,7 @@ public class Uri implements SubjectNode, PredicateNode, ObjectNode {
 
   /**
    * Convenience to a new URI.
-   * @param uri The string form of the URI to wrap.
+   * @param u The string form of the URI to wrap.
    */
   public Uri(String u) throws URISyntaxException {
     this.uri = new URI(u.intern());
@@ -51,7 +51,7 @@ public class Uri implements SubjectNode, PredicateNode, ObjectNode {
 
   /**
    * Safe creation of a URI. This should only be used for valid constants.
-   * @param uri The string form of the URI to wrap.
+   * @param u The string form of the URI to wrap.
    */
   public static Uri create(String u) {
     return new Uri(URI.create(u.intern()));

@@ -61,7 +61,7 @@ public class PrefixMappingImpl implements PrefixMapping {
     public PrefixMapping removeNsPrefix( String prefix )
         {
         checkUnlocked();
-        String uri = prefixToURI.remove( prefix );
+        prefixToURI.remove( prefix );
         regenerateReverseMapping();
         return this;
         }
@@ -181,7 +181,7 @@ public class PrefixMappingImpl implements PrefixMapping {
         localname components; this ensures that the localname is legal and we just
         have to (reverse-)lookup the namespace in the prefix table.
         
-     	@see com.hp.hpl.jena.shared.PrefixMapping#qnameFor(java.lang.String)
+     	@see org.mulgara.jena.shared.PrefixMapping#qnameFor(java.lang.String)
     */
     public String qnameFor( String uri )
         { 

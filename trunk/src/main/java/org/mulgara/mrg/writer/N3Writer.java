@@ -108,7 +108,7 @@ public class N3Writer extends AbstractGraphWriter implements GraphWriter {
   /**
    * Prints all property values together, using ; and , separators.
    * @param o The output to print to.
-   * @param pv The property/values to be written.
+   * @param pvs The property/values to be written.
    */
   protected void writeProperties(PrintStream o, List<PropertyValue> pvs) {
     PredicateNode lastPredicate = null;
