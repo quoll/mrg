@@ -32,6 +32,8 @@ import org.mulgara.mrg.Triple;
 import org.mulgara.mrg.Uri;
 import org.mulgara.mrg.vocab.RDF;
 
+import static org.mulgara.mrg.Graph.X;
+
 /**
  * Unit test for simple App.
  */
@@ -204,9 +206,22 @@ public abstract class GraphTest extends TestCase {
     assertTrue(names.contains(i.next()._1));
     assertTrue(names.contains(i.next()._1));
     assertFalse(i.hasNext());
+
+    i = graph.match(X, hasName, X);
+    assertTrue(names.contains(i.next()._1));
+    assertTrue(names.contains(i.next()._1));
+    assertTrue(names.contains(i.next()._1));
+    assertTrue(names.contains(i.next()._1));
+    assertFalse(i.hasNext());
+
     i = graph.matchX((SubjectNode)null, hasName, "Fred");
     assertEquals(new Triple(fred, hasName, "Fred"), i.next());
     assertFalse(i.hasNext());
+
+    i = graph.matchX(X, hasName, "Fred");
+    assertEquals(new Triple(fred, hasName, "Fred"), i.next());
+    assertFalse(i.hasNext());
+
     i = graph.matchX(fred, hasName, "Fred");
     assertEquals(new Triple(fred, hasName, "Fred"), i.next());
     assertFalse(i.hasNext());
