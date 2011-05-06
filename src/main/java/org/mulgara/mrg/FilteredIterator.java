@@ -42,15 +42,15 @@ class FilteredIterator implements Iterator<Triple> {
 
   /**
    * The main constructor.
-   * @param subject The subject of the pattern to filter on. <code>null</code> means don't filter.
-   * @param predicate The predicate of the pattern to filter on. <code>null</code> means don't filter.
-   * @param object The object of the pattern to filter on. <code>null</code> means don't filter.
+   * @param subject The subject of the pattern to filter on. <code>null</code> or {@link Graph#X} means don't filter.
+   * @param predicate The predicate of the pattern to filter on. <code>null</code> or {@link Graph#X} means don't filter.
+   * @param object The object of the pattern to filter on. <code>null</code> or {@link Graph#X} means don't filter.
    * @param original The iterator to be filtered.
    */
   public FilteredIterator(SubjectNode subject, PredicateNode predicate, ObjectNode object, Iterator<Triple> original) {
-    this.subject = subject;
-    this.predicate = predicate;
-    this.object = object;
+    this.subject = (subject == Graph.X) ? null : subject;
+    this.predicate = (predicate == Graph.X) ? null : predicate;
+    this.object = (object == Graph.X) ? null : object;
     this.original = original;
     nextTriple = findNext();
   }
