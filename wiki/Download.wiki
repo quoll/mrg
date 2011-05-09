@@ -1,4 +1,18 @@
-MRG can be downloaded directly from the [http://code.google.com/p/mrg/downloads/list Downloads page], or as [http://code.google.com/p/mrg/source/checkout source code].
+If using [http://maven.apache.org/ Maven] then include the following in your `pom.xml` file:
+{{{
+  <dependencies>
+    ...
+    <dependency>
+      <groupId>org.mulgara</groupId>
+      <artifactId>mrg</artifactId>
+      <version>0.7</version>
+    </dependency>
+     ...
+  </dependencies>
+}}}
+(At the time of writing, the latest version was 0.7. If there is a more recent release, then update this number)
+----
+MRG can also be downloaded directly from the [http://code.google.com/p/mrg/downloads/list Downloads page], or as [http://code.google.com/p/mrg/source/checkout source code].
 
 
 If downloading the binary JAR file, then you will also need to get the following JARs:
@@ -11,6 +25,3 @@ If downloading the binary JAR file, then you will also need to get the following
 All except the Joda-time files are only required if you are parsing RDF/XML or N3 files, and can be skipped otherwise. Ultimately, I'd like to get rid of these dependencies.
 
 Joda-time is required for dealing with xsd:dateTime literals.
-
-----
-If downloading as source code, then a `pom.xml` file is provided for building with [http://maven.apache.org/ Maven]. This will automatically download all dependencies.
