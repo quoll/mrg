@@ -28,9 +28,9 @@ At this stage, the Graph API only supports Turtle ([http://www.w3.org/DesignIssu
 To parse a graph in one of these formats, just create an instance of one of these files, providing either a string or a Java !InputStream. For instance, to load Turtle text:
 
 {{{
-import org.mulgara.rdf.Graph;
-import org.mulgara.rdf.parser.*;
-static import org.mulgara.rdf.vocab.FOAF;
+import org.mulgara.mrg.Graph;
+import org.mulgara.mrg.parser.*;
+static import org.mulgara.mrg.vocab.FOAF;
 
 
 String text = "@prefix foaf:       <http://xmlns.com/foaf/0.1/> .\n" +
