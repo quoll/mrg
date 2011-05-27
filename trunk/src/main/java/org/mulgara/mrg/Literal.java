@@ -210,12 +210,13 @@ public class Literal implements ObjectNode {
 
   /**
    * Represents this node as a string.
+   * TODO: use namespaces when these are implemented
    */
   public String toString() {
     StringBuilder label = new StringBuilder("\"");
     label.append(text).append("\"");
     if (lang != null) label.append("@").append(lang);
-    if (type != null) label.append("^^").append(type);
+    if (type != null) label.append("^^<").append(type).append(">");
     return label.toString();
   }
 
