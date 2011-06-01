@@ -132,6 +132,57 @@ public class XMLGraphParser implements StatementHandler, ErrorHandler, GraphPars
   }
 
   /**
+   * Create a graph from a string.
+   * @param s The string containing the N3.
+   */
+  public static WritableGraph parse(String s) throws ParseException, IOException {
+    return new XMLGraphParser(s).getGraph();
+  }
+
+  /**
+   * Create a graph from a file.
+   * @param f The file containing the N3.
+   */
+  public static WritableGraph parse(File f) throws ParseException, IOException {
+    return new XMLGraphParser(f).getGraph();
+  }
+
+  /**
+   * Create a graph from an InputStream.
+   * @param is The input stream with the graph data.
+   */
+  public static WritableGraph parse(InputStream is) throws ParseException, IOException {
+    return new XMLGraphParser(is).getGraph();
+  }
+
+  /**
+   * Create a graph from a string.
+   * @param s The string containing the N3.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public static WritableGraph parse(String s, GraphFactory graphFactory) throws ParseException, IOException {
+    return new XMLGraphParser(s, graphFactory).getGraph();
+  }
+
+  /**
+   * Create a graph from a file.
+   * @param f The file containing the N3.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public static WritableGraph parse(File f, GraphFactory graphFactory) throws ParseException, IOException {
+    return new XMLGraphParser(f, graphFactory).getGraph();
+  }
+
+  /**
+   * Create a graph from an InputStream.
+   * @param is The input stream with the graph data.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public static WritableGraph parse(InputStream is, GraphFactory graphFactory) throws ParseException, IOException {
+    return new XMLGraphParser(is, graphFactory).getGraph();
+  }
+
+  /**
    * Gets the parsed graph.
    */
   public WritableGraph getGraph() {
