@@ -36,7 +36,7 @@ import org.mulgara.mrg.vocab.uri.VCARD;
 import org.mulgara.mrg.vocab.uri.XSD;
 import org.mulgara.util.Strings;
 
-public class AbstractGraphWriter {
+public abstract class AbstractGraphWriter implements GraphWriter {
 
   /** A static list of known namespaces */
   static final Map<String,String> knownNamespaces = new HashMap<String,String>();
