@@ -19,6 +19,7 @@ package org.mulgara.mrg.parser;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.mulgara.mrg.Graph;
 import org.mulgara.mrg.parser.GraphParser;
 import org.mulgara.mrg.parser.XMLGraphParser;
 
@@ -46,6 +47,10 @@ public class RdfXmlTest extends ParseTest {
 
   protected GraphParser getParser(String document) throws Exception {
     return new XMLGraphParser(document);
+  }
+
+  protected Graph parse(String document) throws Exception {
+    return XMLGraphParser.parse(document);
   }
 
   protected String getDocument() {

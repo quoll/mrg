@@ -44,6 +44,8 @@ public abstract class ParseTest extends TestCase {
 
   protected abstract GraphParser getParser(String document) throws Exception;
 
+  protected abstract Graph parse(String document) throws Exception;
+
   protected abstract String getDocument();
 
   /**
@@ -58,8 +60,31 @@ public abstract class ParseTest extends TestCase {
    * Test the data in the graph
    */
   public void testDataLoad() throws Exception {
+    verifyData(constructionLoad());
+  }
+
+  /**
+   * Test the static parse function
+   */
+  public void testLoadFunction() throws Exception {
+    verifyData(parse(getDocument()));
+  }
+
+  ///////////////// end of tests ////////////////
+
+  /**
+   * Load a graph using the parser constructor/
+   */
+  Graph constructionLoad() throws Exception {
     GraphParser p = getParser(getDocument());
-    Graph g = p.getGraph();
+    return p.getGraph();
+  }
+
+  /**
+   * Tests the composition of a graph.
+   * @param g The graph to test.
+   */
+  void verifyData(Graph g) throws Exception {
     List<SubjectNode> s = g.getSubjects(name, new Literal("Bruce Campbell"));
     assertEquals(s.size(), 1);
     Node n = s.get(0);
@@ -70,5 +95,4 @@ public abstract class ParseTest extends TestCase {
     assertEquals("10", ((Literal)ten).getText());
     assertEquals(integer, ((Literal)ten).getType());
   }
-
 }
