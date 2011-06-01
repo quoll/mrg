@@ -105,6 +105,57 @@ public class N3GraphParser implements TurtleEventHandler, GraphParser {
   }
 
   /**
+   * Create a graph from a string.
+   * @param s The string containing the N3.
+   */
+  public static WritableGraph parse(String s) throws ParseException, IOException {
+    return new N3GraphParser(s).getGraph();
+  }
+
+  /**
+   * Create a graph from a file.
+   * @param f The file containing the N3.
+   */
+  public static WritableGraph parse(File f) throws ParseException, IOException {
+    return new N3GraphParser(f).getGraph();
+  }
+
+  /**
+   * Create a graph from an InputStream.
+   * @param is The input stream with the graph data.
+   */
+  public static WritableGraph parse(InputStream is) throws ParseException, IOException {
+    return new N3GraphParser(is).getGraph();
+  }
+
+  /**
+   * Create a graph from a string.
+   * @param s The string containing the N3.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public static WritableGraph parse(String s, GraphFactory graphFactory) throws ParseException, IOException {
+    return new N3GraphParser(s, graphFactory).getGraph();
+  }
+
+  /**
+   * Create a graph from a file.
+   * @param f The file containing the N3.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public static WritableGraph parse(File f, GraphFactory graphFactory) throws ParseException, IOException {
+    return new N3GraphParser(f, graphFactory).getGraph();
+  }
+
+  /**
+   * Create a graph from an InputStream.
+   * @param is The input stream with the graph data.
+   * @param graphFactory A mechanism for creating a graph to populate.
+   */
+  public static WritableGraph parse(InputStream is, GraphFactory graphFactory) throws ParseException, IOException {
+    return new N3GraphParser(is, graphFactory).getGraph();
+  }
+
+  /**
    * Retrieves the ResultSet that this parser built.
    */
   public WritableGraph getGraph() {
