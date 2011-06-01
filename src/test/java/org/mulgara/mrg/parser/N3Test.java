@@ -19,6 +19,7 @@ package org.mulgara.mrg.parser;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.mulgara.mrg.Graph;
 import org.mulgara.mrg.parser.GraphParser;
 import org.mulgara.mrg.parser.N3GraphParser;
 
@@ -46,6 +47,10 @@ public class N3Test extends ParseTest {
 
   protected GraphParser getParser(String document) throws Exception {
     return new N3GraphParser(document);
+  }
+
+  protected Graph parse(String document) throws Exception {
+    return N3GraphParser.parse(document);
   }
 
   protected String getDocument() {
