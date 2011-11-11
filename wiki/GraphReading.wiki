@@ -42,7 +42,7 @@ There is no need to go through all of the properties on a subject. If you just r
 There is also a convenience method for getting just a single value:
 {{{
   Uri rdfType = org.mulgara.rdf.vocabulary.RDFResources.TYPE;
-  ObjectNode type = graph.getValues(fred, type);
+  ObjectNode type = graph.getValue(fred, type);
 
   System.out.println(fred.toString() + " is a: " + type);
 }}}
