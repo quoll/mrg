@@ -72,9 +72,12 @@ public abstract class GraphTest extends TestCase {
     Graph graph = getGraph(empty);
     assertTrue(graph.isEmpty());
     List<Triple> triples = getTriples();
-    for (Triple t: triples) ((AppendableGraph)graph).insert(t);
+    for (Triple t: triples) {
+      assertTrue(((AppendableGraph)graph).insert(t));
+    }
     assertFalse(graph.isEmpty());
     assertEquals(triples.size(), graph.size());
+    assertFalse(((AppendableGraph)graph).insert(triples.get(0)));
   }
 
   /**
