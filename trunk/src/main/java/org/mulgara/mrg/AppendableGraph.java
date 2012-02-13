@@ -34,7 +34,7 @@ public interface AppendableGraph extends Graph {
   /**
    * Add a new triple to the graph.
    * @param triple The complete triple to add.
-   * @return <code>true</code> if the triple was already in the graph.
+   * @return <code>true</code> if the triple was not already in the graph.
    */
   public boolean insert(Triple triple);
 

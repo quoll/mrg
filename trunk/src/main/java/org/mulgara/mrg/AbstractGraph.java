@@ -73,7 +73,7 @@ public abstract class AbstractGraph extends AbstractGraphExt implements Graph, W
    * @param s The subject of the triple.
    * @param p The predicate of the triple.
    * @param o The object of the triple.
-   * @return <code>true</code> if the triple was already in the graph.
+   * @return <code>true</code> if the triple was not already in the graph.
    */
   public boolean insert(SubjectNode s, PredicateNode p, ObjectNode o) {
     return spo.put(s, p, o);
@@ -82,7 +82,7 @@ public abstract class AbstractGraph extends AbstractGraphExt implements Graph, W
   /**
    * Add a new triple to the graph.
    * @param triple The complete triple to add.
-   * @return <code>true</code> if the triple was already in the graph.
+   * @return <code>true</code> if the triple was not already in the graph.
    */
   public boolean insert(Triple triple) {
     return insert(triple.getSubject(), triple.getPredicate(), triple.getObject());
@@ -461,7 +461,7 @@ public abstract class AbstractGraph extends AbstractGraphExt implements Graph, W
      * @param a The first level of the index.
      * @param b The second level of the index.
      * @param c The third level of the index.
-     * @return <code>true</code> if the value already existed, <code>false</code> otherwise.
+     * @return <code>false</code> if the value did not exist, <code>true</code> if it did.
      */
     public boolean put(A a, B b, C c) {
       TwoTierIndex<B,C> i = index.get(a);
@@ -625,19 +625,19 @@ public abstract class AbstractGraph extends AbstractGraphExt implements Graph, W
      * Adds a new key/value to the index.
      * @param key The key of the tuple.
      * @param value The value of the tuple.
-     * @return <code>true</code> if the pair already existed, <code>false</code> if it did not.
+     * @return <code>false</code> if the pair already existed, <code>true</code> if it did not.
      */
     public boolean put(A key, B value) {
       Collection<B> s = index.get(key);
       boolean result;
       if (s == null) {
-        result = false;
+        result = true;
         s = createCollection();
         index.put(key, s);
       } else {
-        result = s.contains(value);
+        result = !s.contains(value);
       }
-      if (!result) s.add(value);
+      if (result) s.add(value);
       return result;
     }
 
