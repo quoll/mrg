@@ -12,6 +12,7 @@ Resources that can have descriptions about them in RDF are *!SubjectNodes*. Thes
 
 To find a list of all properties of a subject, use the getProperties method:
 {{{
+  // getTheGraph() will be defined somewhere to create or load a graph
   Graph graph = getTheGraph();
 
   // we know "Fred's" URI
@@ -21,7 +22,7 @@ To find a list of all properties of a subject, use the getProperties method:
   List<PropertyValue> propertyValues = graph.getProperties(fred);
 
   // print all of the properties and their corresponding values
-  for (Iterator<PropertyValue> propVal: propertyValues) {
+  for (PropertyValue propVal: propertyValues) {
     System.out.println(propVal.getProperty() + " = " + propVal.getValue());
   }
 }}}
