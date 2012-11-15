@@ -35,7 +35,7 @@ There is no need to go through all of the properties on a subject. If you just r
   List<ObjectNode> values = graph.getValues(fred, foafKnows);
 
   // print all of the properties and their corresponding values
-  for (Iterator<ObjectNode> v: values) {
+  for (ObjectNode v: values) {
     System.out.println("  knows: " + v);
   }
 }}}
@@ -57,7 +57,7 @@ To find all of the elements in an RDF list, there is no need to process the list
   List<ObjectNode> kids = graph.getRdfList(fred, exHasChildren);
 
   // print all of the children
-  for (Iterator<ObjectNode> child: kids) {
+  for (ObjectNode child: kids) {
     System.out.println(child);
   }
 }}}
