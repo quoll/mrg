@@ -1,0 +1,95 @@
+The major methods on the Graph interface, and how to use them to access RDF structures.
+
+# Introduction #
+The **Graph** interface is used to read the structure of an RDF Graph. For information about how to create a graph, see GraphLoading. For information about modifying a graph, see AppendableGraph and WritableGraph.
+
+RDF uses three kinds of resources: URI References, Blank Nodes, and Literals. The API classes for representing these resources are **Uri**, **Bnode** and **Literal**, respectively. While the Graph API works entirely with these types, there is extensive method overloading to allow the use of `java.net.URI` and strings. In any place where a URI reference would be required (such as for a subject or predicate) then a string will automatically converted. Where a Literal is possible, then strings are converted to literals instead. In the following examples we will stick to the internal types, but remember that the conversions are available. This can save the need to explicitly create Uris and Literals.
+
+Resources that can have descriptions about them in RDF are **SubjectNodes**. These include both **Uri** and **Bnode**. Using an instance of one of these items, a graph can be interrogated for the properties on those resources. Some of the following examples will use Uri resources identified by some given URI, but later on we will show you how to find resources as well.
+
+## Properties ##
+
+To find a list of all properties of a subject, use the getProperties method:
+```
+  // getTheGraph() will be defined somewhere to create or load a graph
+  Graph graph = getTheGraph();
+
+  // we know "Fred's" URI
+  Uri fred = Uri.create("http://example.com/fred");
+
+  // get all of the properties for "Fred"
+  List<PropertyValue> propertyValues = graph.getProperties(fred);
+
+  // print all of the properties and their corresponding values
+  for (PropertyValue propVal: propertyValues) {
+    System.out.println(propVal.getProperty() + " = " + propVal.getValue());
+  }
+```
+
+Note that `graph.getProperties()` could have taken the string form of the URI instead.
+
+There is no need to go through all of the properties on a subject. If you just require the values associated with a single property you can get it directly with getValue:
+```
+  Uri foafKnows = new Uri(org.mulgara.rdf.vocabulary.FOAF.KNOWS);
+  List<ObjectNode> values = graph.getValues(fred, foafKnows);
+
+  // print all of the properties and their corresponding values
+  for (ObjectNode v: values) {
+    System.out.println("  knows: " + v);
+  }
+```
+
+There is also a convenience method for getting just a single value:
+```
+  Uri rdfType = org.mulgara.rdf.vocabulary.RDFResources.TYPE;
+  ObjectNode type = graph.getValue(fred, type);
+
+  System.out.println(fred.toString() + " is a: " + type);
+```
+
+## Lists ##
+To find all of the elements in an RDF list, there is no need to process the list manually. Instead, use the getRdfList method:
+
+```
+  // assume that ex:hasChildren refers to a list of children, in order
+  Uri exHasChildren = Uri.create("http://example.org/hasChildren");
+  List<ObjectNode> kids = graph.getRdfList(fred, exHasChildren);
+
+  // print all of the children
+  for (ObjectNode child: kids) {
+    System.out.println(child);
+  }
+```
+
+## Finding Subjects ##
+
+All of the operations so far have presumed that you can create the subject you need to work with. However, there are occasions where the subject is unknown ahead of time. This is particularly the case if the subject is a blank node, as it is not possible to create the required blank node programmatically. In this case, you can search for the subject by a given property and value:
+
+```
+  Uri foafFirstName = Uri.create(org.mulgara.rdf.vocabulary.FOAF.FIRST_NAME);
+  List<SubjectNode> freds = graph.getSubjects(foafFirstName, "Fred");
+
+  // print the URIs or labels of everyone named "Fred"
+  for (SubjectNode fred: freds) {
+    System.out.println(fred);
+  }
+```
+
+## Triples ##
+
+It may be that you want to see the triples in the graph. In this case, you can use the getTriples method. Some implementations of graph may not want to support this, particularly for large graphs, as it returns a list rather than an iterator:
+
+```
+  List<Triple> triples = graph.getTriples();
+  // write some simple NTriples
+  for (Triple t: triples) {
+    System.out.println(String.format("%s %s %s .", t.getSubject(), t.getPredicate(), t.getObject());
+  }
+```
+
+If you just need to know the number of triples in the graph, there is no need to instantiate a list of triples:
+
+```
+  System.out.println("Graph has " + graph.size() + " triples");
+  System.out.println("Graph " + (graph.isEmpty() ? "is" : "is not") + " empty");
+```

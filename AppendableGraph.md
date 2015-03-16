@@ -1,0 +1,34 @@
+Graph construction with the **insert** operation.
+
+# Introduction #
+
+While graphs are often read from a foreign source, there are occasions when it is necessary to construct a graph of your own, or to annotate an existing graph. The AppendableGraph interface extends [Graph](GraphReading.md) to allow new triples to be added to a graph.
+
+
+# Insert #
+
+AppendableGraph is designed to add raw triples to a graph. As a result there are just two methods, both called **insert**:
+
+```
+  public boolean insert(SubjectNode s, PredicateNode p, ObjectNode o);
+  public boolean insert(Triple t);
+```
+
+The Triple in the second form is simply a tuple that holds the same data as the parameters in the first method.
+
+Both methods return **true** if the triple was already in the graph, or **false** if it was not.
+
+## Example ##
+
+The graph parsing code uses a parser to create events which then trigger the insertion of a triple. For instance, the N3 parser generates events that call a method called **triple**. This is implemented using the **AppendableGraph.insert** method:
+
+```
+  public void triple(int line, int col, Triple triple) {
+    try {
+      graph.insert(triple);
+      triples++;
+    } catch (ClassCastException e) {
+      error("Bad triple at line: " + line + ", column: " + col + ": " + triple);
+    }
+  }
+```

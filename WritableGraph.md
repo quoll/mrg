@@ -1,0 +1,26 @@
+Editing of graphs at the triple level.
+
+# Introduction #
+
+[Graph](GraphReading.md) enables graphs to be read, and AppendableGraph enables graph construction. However, sometimes it is necessary to modify existing data. This is done with WritableGraph.
+
+
+# Insert #
+
+WritableGraph extends AppendableGraph, meaning that new triples can be added to the graph with the **insert** method:
+
+```
+  public boolean insert(SubjectNode s, PredicateNode p, ObjectNode o);
+  public boolean insert(Triple t);
+```
+
+WritableGraph also includes methods for removing existing triples:
+
+```
+  public boolean delete(SubjectNode s, PredicateNode p, ObjectNode o);
+  public boolean delete(Triple t);
+```
+
+As with insertion, the **Triple** parameter in the second method encapsulates the same data found in the arguments of the first method.
+
+If data to be deleted is not in the graph, then these methods will return **false**. However, if the data was found and removed, then the methods return **true**.
