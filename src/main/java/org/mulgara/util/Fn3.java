@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Paul Gearon.
+ * Copyright 2011 Paula Gearon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ package org.mulgara.util;
  * @param <T3> The type of the third parameter for the function.
  * @param <R> The return type of the function.
  *
- * @author Paul Gearon
+ * @author Paula Gearon
  */
 public interface Fn3<T1,T2,T3,R> extends Fn3E<T1,T2,T3,R,RuntimeException>{
 

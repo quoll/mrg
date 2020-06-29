@@ -27,7 +27,7 @@
  * * $Id: StatementHandler.java,v 1.1 2009/06/29 08:55:46 castagna Exp $
    
    AUTHOR:  Jeremy J. Carroll
-   MODIFIED BY: Paul Gearon
+   MODIFIED BY: Paula Gearon
 */
 /*
  * StatementHandler.java

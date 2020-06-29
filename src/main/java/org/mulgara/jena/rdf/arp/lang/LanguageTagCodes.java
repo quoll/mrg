@@ -27,7 +27,7 @@
  * * $Id: LanguageTagCodes.java,v 1.1 2009/06/29 08:55:44 castagna Exp $
    
    AUTHOR:  Jeremy J. Carroll
-   MODIFIED BY: Paul Gearon
+   MODIFIED BY: Paula Gearon
 */
 /*
  * LanguageTagCodes.java

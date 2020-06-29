@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Paul Gearon.
+ * Copyright 2010 Paula Gearon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import java.util.Set;
  * This class defines static methods for operating on Collections and the functors found in
  * {@link org.mulgara.util.Fn1} and {@link org.mulgara.util.Fn2}.
  *
- * @author Paul Gearon
+ * @author Paula Gearon
  */
 public class C {
 

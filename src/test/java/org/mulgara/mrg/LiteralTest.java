@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Paul Gearon.
+ * Copyright 2010 Paula Gearon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 /**
  * Tests literal data types and parsing.
  * Currently only tests dateTimes as these are the most complex
- * @author Paul Gearon
+ * @author Paula Gearon
  * @date Apr 20, 2011
  */
 public class LiteralTest extends TestCase {

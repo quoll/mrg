@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Paul Gearon.
+ * Copyright 2010 Paula Gearon.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ package org.mulgara.util;
  * without throwing an exception.
  * @param <R> The return type of the function.
  *
- * @author Paul Gearon
+ * @author Paula Gearon
  */
 public interface Fn<R> extends FnE<R,RuntimeException> {
 

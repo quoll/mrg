@@ -29,7 +29,7 @@ import static org.joda.time.DateTimeZone.UTC;
  * It stores the value of the dateTime in the canonical form, but also contains values which
  * allow the preservation of the non-canonical format.
  *
- * @author Paul Gearon
+ * @author Paula Gearon
  * &copy; 2008 <a href="http://www.fedora-commons.org/">Fedora Commons</a>
  */
 public class LexicalDateTime {
